@@ -418,19 +418,23 @@ function gasRequest(params) {
     const script = document.createElement('script');
     const timeout = setTimeout(() => {
       delete window[cbName];
-      document.body.removeChild(script);
+      if (document.body.contains(script)) document.body.removeChild(script);
       reject(new Error('Timeout'));
-    }, 10000);
+    }, 15000);
 
     window[cbName] = function(data) {
       clearTimeout(timeout);
       delete window[cbName];
-      document.body.removeChild(script);
+      if (document.body.contains(script)) document.body.removeChild(script);
       resolve(data);
     };
 
-    const qs = Object.entries({...params, callback: cbName})
-      .map(([k,v]) => `${k}=${encodeURIComponent(typeof v === 'object' ? JSON.stringify(v) : v)}`)
+    const flat = { callback: cbName };
+    for (const [k, v] of Object.entries(params)) {
+      flat[k] = (typeof v === 'object') ? JSON.stringify(v) : String(v);
+    }
+    const qs = Object.entries(flat)
+      .map(([k,v]) => encodeURIComponent(k) + '=' + encodeURIComponent(v))
       .join('&');
     script.src = GAS_URL + '?' + qs;
     document.body.appendChild(script);
