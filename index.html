@@ -411,15 +411,35 @@ let currentStudentName = '';
 let allResults = [];
 let modalIdx = null;
 
-// ── STORAGE HELPERS (Google Apps Script) ──
+// ── STORAGE HELPERS (Google Apps Script - JSONP) ──
+function gasRequest(params) {
+  return new Promise((resolve, reject) => {
+    const cbName = 'cb_' + Date.now();
+    const script = document.createElement('script');
+    const timeout = setTimeout(() => {
+      delete window[cbName];
+      document.body.removeChild(script);
+      reject(new Error('Timeout'));
+    }, 10000);
+
+    window[cbName] = function(data) {
+      clearTimeout(timeout);
+      delete window[cbName];
+      document.body.removeChild(script);
+      resolve(data);
+    };
+
+    const qs = Object.entries({...params, callback: cbName})
+      .map(([k,v]) => `${k}=${encodeURIComponent(typeof v === 'object' ? JSON.stringify(v) : v)}`)
+      .join('&');
+    script.src = GAS_URL + '?' + qs;
+    document.body.appendChild(script);
+  });
+}
+
 async function saveResult(record) {
   try {
-    const res = await fetch(GAS_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(record)
-    });
+    await gasRequest({ action: 'save', data: record });
     return true;
   } catch(e) {
     console.error('Save error:', e);
@@ -429,8 +449,7 @@ async function saveResult(record) {
 
 async function loadAll() {
   try {
-    const res = await fetch(GAS_URL + '?action=get');
-    const data = await res.json();
+    const data = await gasRequest({ action: 'get' });
     return Array.isArray(data) ? data : [];
   } catch(e) {
     console.error('Load error:', e);
@@ -440,12 +459,7 @@ async function loadAll() {
 
 async function deleteResult(idx) {
   try {
-    await fetch(GAS_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: 'delete', index: idx })
-    });
+    await gasRequest({ action: 'delete', index: idx });
     allResults = allResults.filter((_,i) => i !== idx);
   } catch(e) {
     console.error('Delete error:', e);
