@@ -606,7 +606,7 @@ function showStudentResult(record) {
     row.innerHTML=`
       <div class="answer-q-num">${i}</div>
       <div class="answer-detail">
-        <div class="answer-q-text">${QUESTIONS[i-1].text.substring(0,80)}...</div>
+        <div class="answer-q-text">${QUESTIONS[i-1].text}</div>
         <div class="answer-choices">
           <span class="answer-given">${givenText}</span>
           ${d.result!=='correct'?`<span class="answer-correct-lbl">Doğru: <b>${d.correct}</b></span>`:''}
