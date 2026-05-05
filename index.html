@@ -16,840 +16,226 @@
     --green: #2d6a4f;
     --light-gray: #f0ede6;
     --text: #1a2340;
-    --white: #ffffff;
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text); min-height: 100vh; }
 
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--cream);
-    color: var(--text);
-    min-height: 100vh;
-  }
-
-  /* ── SCREENS ── */
   .screen { display: none; min-height: 100vh; }
   .screen.active { display: flex; flex-direction: column; }
 
-  /* ── LOGIN SCREEN ── */
-  #loginScreen {
-    background: var(--navy);
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-  }
-  #loginScreen::before {
-    content: '';
-    position: absolute;
-    width: 600px; height: 600px;
-    background: radial-gradient(circle, rgba(42,157,143,0.2) 0%, transparent 70%);
-    top: -100px; right: -100px;
-    border-radius: 50%;
-  }
-  #loginScreen::after {
-    content: '';
-    position: absolute;
-    width: 400px; height: 400px;
-    background: radial-gradient(circle, rgba(233,196,106,0.1) 0%, transparent 70%);
-    bottom: -50px; left: -50px;
-    border-radius: 50%;
-  }
-
-  .login-card {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 24px;
-    padding: 48px;
-    width: 440px;
-    backdrop-filter: blur(20px);
-    position: relative;
-    z-index: 1;
-    animation: fadeUp 0.6s ease;
-  }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .login-badge {
-    display: inline-block;
-    background: var(--teal);
-    color: white;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    padding: 6px 14px;
-    border-radius: 20px;
-    margin-bottom: 20px;
-  }
-
-  .login-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 28px;
-    color: white;
-    line-height: 1.3;
-    margin-bottom: 8px;
-  }
-
-  .login-sub {
-    color: rgba(255,255,255,0.5);
-    font-size: 14px;
-    margin-bottom: 36px;
-  }
-
-  .role-tabs {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 28px;
-    background: rgba(255,255,255,0.05);
-    padding: 4px;
-    border-radius: 12px;
-  }
-
-  .role-tab {
-    flex: 1;
-    padding: 10px;
-    border: none;
-    border-radius: 9px;
-    cursor: pointer;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    transition: all 0.2s;
-    background: transparent;
-    color: rgba(255,255,255,0.5);
-  }
-
-  .role-tab.active {
-    background: var(--teal);
-    color: white;
-  }
-
-  .form-group { margin-bottom: 18px; }
-
-  .form-label {
-    display: block;
-    color: rgba(255,255,255,0.6);
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
-
-  .form-input {
-    width: 100%;
-    padding: 14px 18px;
-    background: rgba(255,255,255,0.07);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 12px;
-    color: white;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-
-  .form-input:focus { border-color: var(--teal); }
-  .form-input::placeholder { color: rgba(255,255,255,0.25); }
-
-  .btn-primary {
-    width: 100%;
-    padding: 15px;
-    background: var(--teal);
-    color: white;
-    border: none;
-    border-radius: 12px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-    margin-top: 8px;
-  }
-
-  .btn-primary:hover { background: var(--teal-light); transform: translateY(-1px); }
-
-  .error-msg {
-    color: #ff6b6b;
-    font-size: 13px;
-    margin-top: 8px;
-    display: none;
-  }
-
-  /* ── EXAM SCREEN ── */
-  #examScreen { background: var(--cream); }
-
-  .exam-header {
-    background: var(--navy);
-    color: white;
-    padding: 20px 32px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: sticky;
-    top: 0;
-    z-index: 10;
-  }
-
-  .exam-header-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 18px;
-  }
-
-  .exam-header-info {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    font-size: 14px;
-    color: rgba(255,255,255,0.7);
-  }
-
-  .student-name-badge {
-    background: var(--teal);
-    color: white;
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 13px;
-    font-weight: 500;
-  }
-
-  .exam-body {
-    max-width: 760px;
-    margin: 0 auto;
-    padding: 40px 20px 100px;
-  }
-
-  .progress-bar-wrap {
-    background: white;
-    border-radius: 12px;
-    padding: 20px 24px;
-    margin-bottom: 32px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-  }
-
-  .progress-info {
-    display: flex;
-    justify-content: space-between;
-    font-size: 13px;
-    color: rgba(26,35,64,0.5);
-    margin-bottom: 10px;
-  }
-
-  .progress-track {
-    height: 6px;
-    background: var(--light-gray);
-    border-radius: 3px;
-    overflow: hidden;
-  }
-
-  .progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--teal), var(--teal-light));
-    border-radius: 3px;
-    transition: width 0.4s ease;
-  }
-
-  .question-card {
-    background: white;
-    border-radius: 20px;
-    padding: 36px;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.06);
-    animation: slideIn 0.3s ease;
-  }
-
-  @keyframes slideIn {
-    from { opacity: 0; transform: translateX(20px); }
-    to { opacity: 1; transform: translateX(0); }
-  }
-
-  .question-num {
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--teal);
-    margin-bottom: 12px;
-  }
-
-  .question-text {
-    font-size: 17px;
-    font-weight: 500;
-    line-height: 1.65;
-    color: var(--navy);
-    margin-bottom: 28px;
-  }
-
-  .options-list { display: flex; flex-direction: column; gap: 12px; }
-
-  .option-btn {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 16px 20px;
-    border: 2px solid var(--light-gray);
-    border-radius: 14px;
-    background: var(--cream);
-    cursor: pointer;
-    transition: all 0.2s;
-    text-align: left;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    color: var(--navy);
-  }
-
-  .option-btn:hover { border-color: var(--teal); background: rgba(42,157,143,0.05); }
-
-  .option-btn.selected {
-    border-color: var(--teal);
-    background: rgba(42,157,143,0.08);
-  }
-
-  .option-letter {
-    width: 32px; height: 32px;
-    border-radius: 50%;
-    background: white;
-    border: 2px solid currentColor;
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 700;
-    font-size: 13px;
-    flex-shrink: 0;
-    color: rgba(26,35,64,0.4);
-    transition: all 0.2s;
-  }
-
-  .option-btn.selected .option-letter {
-    background: var(--teal);
-    border-color: var(--teal);
-    color: white;
-  }
-
-  .nav-bar {
-    position: fixed;
-    bottom: 0; left: 0; right: 0;
-    background: white;
-    border-top: 1px solid var(--light-gray);
-    padding: 16px 32px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 10;
-  }
-
-  .btn-nav {
-    padding: 12px 28px;
-    border-radius: 12px;
-    border: none;
-    cursor: pointer;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    font-weight: 600;
-    transition: all 0.2s;
-  }
-
-  .btn-prev {
-    background: var(--light-gray);
-    color: var(--navy);
-  }
-  .btn-prev:hover { background: #e0ddd6; }
-
-  .btn-next {
-    background: var(--navy);
-    color: white;
-  }
-  .btn-next:hover { background: #2a3550; }
-
-  .btn-submit {
-    background: var(--teal);
-    color: white;
-  }
-  .btn-submit:hover { background: var(--teal-light); }
-
-  .question-dots {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-    max-width: 300px;
-    justify-content: center;
-  }
-
-  .q-dot {
-    width: 10px; height: 10px;
-    border-radius: 50%;
-    background: var(--light-gray);
-    border: 1.5px solid transparent;
-    transition: all 0.2s;
-  }
-  .q-dot.answered { background: var(--teal); }
-  .q-dot.current { border-color: var(--navy); transform: scale(1.3); }
-
-  /* ── RESULT SCREEN (öğrenci) ── */
-  #resultScreen { background: var(--cream); }
-
-  .result-header {
-    background: var(--navy);
-    padding: 32px;
-    text-align: center;
-    color: white;
-  }
-
-  .result-score-circle {
-    width: 140px; height: 140px;
-    border-radius: 50%;
-    border: 6px solid var(--teal);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 24px auto;
-    background: rgba(42,157,143,0.1);
-  }
-
-  .score-number {
-    font-family: 'Playfair Display', serif;
-    font-size: 42px;
-    font-weight: 700;
-    color: var(--teal-light);
-    line-height: 1;
-  }
-
-  .score-label {
-    font-size: 12px;
-    color: rgba(255,255,255,0.5);
-    margin-top: 4px;
-  }
-
-  .result-body {
-    max-width: 760px;
-    margin: 0 auto;
-    padding: 32px 20px;
-  }
-
-  .result-summary {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    margin-bottom: 32px;
-  }
-
-  .summary-card {
-    background: white;
-    border-radius: 16px;
-    padding: 20px;
-    text-align: center;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-  }
-
-  .summary-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 32px;
-    font-weight: 700;
-  }
-
-  .summary-num.correct { color: var(--green); }
-  .summary-num.wrong { color: var(--red); }
-  .summary-num.blank { color: rgba(26,35,64,0.3); }
-
-  .summary-lbl {
-    font-size: 12px;
-    color: rgba(26,35,64,0.5);
-    margin-top: 4px;
-  }
-
-  .answers-grid { display: flex; flex-direction: column; gap: 12px; }
-
-  .answer-row {
-    background: white;
-    border-radius: 14px;
-    padding: 16px 20px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    box-shadow: 0 1px 8px rgba(0,0,0,0.05);
-    border-left: 4px solid transparent;
-  }
-
-  .answer-row.correct { border-left-color: var(--green); }
-  .answer-row.wrong { border-left-color: var(--red); }
-  .answer-row.blank { border-left-color: rgba(26,35,64,0.15); }
-
-  .answer-q-num {
-    width: 36px; height: 36px;
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 700;
-    font-size: 14px;
-    flex-shrink: 0;
-  }
-
-  .answer-row.correct .answer-q-num { background: rgba(45,106,79,0.1); color: var(--green); }
-  .answer-row.wrong .answer-q-num { background: rgba(230,57,70,0.1); color: var(--red); }
-  .answer-row.blank .answer-q-num { background: var(--light-gray); color: rgba(26,35,64,0.3); }
-
-  .answer-detail { flex: 1; }
-  .answer-q-text { font-size: 13px; color: var(--navy); font-weight: 500; line-height: 1.4; }
-
-  .answer-choices {
-    display: flex;
-    gap: 12px;
-    margin-top: 6px;
-    font-size: 12px;
-  }
-
-  .answer-given { color: var(--red); }
-  .answer-correct-lbl { color: var(--green); }
-
-  .answer-icon {
-    font-size: 20px;
-    flex-shrink: 0;
-  }
-
-  /* ── TEACHER PANEL ── */
-  #teacherScreen { background: var(--cream); }
-
-  .teacher-header {
-    background: var(--navy);
-    padding: 20px 32px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .teacher-header-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 20px;
-    color: white;
-  }
-
-  .btn-logout {
-    background: rgba(255,255,255,0.1);
-    color: white;
-    border: 1px solid rgba(255,255,255,0.2);
-    padding: 8px 18px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    transition: all 0.2s;
-  }
-  .btn-logout:hover { background: rgba(255,255,255,0.2); }
-
-  .teacher-body {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 32px 20px;
-  }
-
-  .panel-tabs {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 28px;
-    border-bottom: 2px solid var(--light-gray);
-    padding-bottom: 0;
-  }
-
-  .panel-tab {
-    padding: 10px 24px;
-    border: none;
-    background: none;
-    cursor: pointer;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    font-weight: 500;
-    color: rgba(26,35,64,0.4);
-    border-bottom: 2px solid transparent;
-    margin-bottom: -2px;
-    transition: all 0.2s;
-  }
-  .panel-tab.active { color: var(--teal); border-bottom-color: var(--teal); }
-
-  .panel-content { display: none; }
-  .panel-content.active { display: block; }
-
-  /* Stats cards */
-  .stats-row {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-    margin-bottom: 28px;
-  }
-
-  .stat-card {
-    background: white;
-    border-radius: 16px;
-    padding: 20px 24px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-  }
-
-  .stat-value {
-    font-family: 'Playfair Display', serif;
-    font-size: 36px;
-    font-weight: 700;
-    color: var(--navy);
-  }
-
-  .stat-lbl {
-    font-size: 13px;
-    color: rgba(26,35,64,0.45);
-    margin-top: 4px;
-  }
-
-  /* Student list */
-  .section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 20px;
-    margin-bottom: 16px;
-    color: var(--navy);
-  }
-
-  .student-table {
-    background: white;
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-  }
-
-  .student-table table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-
-  .student-table th {
-    background: var(--navy);
-    color: white;
-    padding: 14px 20px;
-    text-align: left;
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-  }
-
-  .student-table td {
-    padding: 14px 20px;
-    border-bottom: 1px solid var(--light-gray);
-    font-size: 14px;
-  }
-
-  .student-table tr:last-child td { border-bottom: none; }
-  .student-table tr:hover td { background: var(--cream); }
-
-  .score-badge {
-    display: inline-block;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-weight: 600;
-    font-size: 13px;
-  }
-
-  .score-badge.high { background: rgba(45,106,79,0.12); color: var(--green); }
-  .score-badge.mid { background: rgba(233,196,106,0.2); color: #b8860b; }
-  .score-badge.low { background: rgba(230,57,70,0.1); color: var(--red); }
-
-  .btn-detail {
-    padding: 6px 14px;
-    background: var(--cream);
-    border: 1px solid var(--light-gray);
-    border-radius: 8px;
-    cursor: pointer;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    color: var(--navy);
-    transition: all 0.2s;
-  }
-  .btn-detail:hover { background: var(--teal); color: white; border-color: var(--teal); }
-
-  /* Question analysis */
-  .q-analysis-grid { display: flex; flex-direction: column; gap: 10px; }
-
-  .q-analysis-row {
-    background: white;
-    border-radius: 12px;
-    padding: 14px 20px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    box-shadow: 0 1px 6px rgba(0,0,0,0.05);
-  }
-
-  .q-num-badge {
-    width: 32px; height: 32px;
-    border-radius: 8px;
-    background: var(--navy);
-    color: white;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 13px;
-    font-weight: 700;
-    flex-shrink: 0;
-  }
-
-  .q-analysis-bar-wrap {
-    flex: 1;
-    height: 8px;
-    background: var(--light-gray);
-    border-radius: 4px;
-    overflow: hidden;
-  }
-
-  .q-analysis-bar {
-    height: 100%;
-    border-radius: 4px;
-    transition: width 0.6s ease;
-  }
-
-  .q-analysis-pct {
-    font-size: 14px;
-    font-weight: 600;
-    width: 42px;
-    text-align: right;
-  }
-
-  .empty-state {
-    text-align: center;
-    padding: 60px 20px;
-    color: rgba(26,35,64,0.35);
-  }
-
-  .empty-state .icon { font-size: 48px; margin-bottom: 12px; }
-  .empty-state p { font-size: 15px; }
-
-  /* Modal */
-  .modal-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.5);
-    z-index: 100;
-    align-items: center;
-    justify-content: center;
-  }
-  .modal-overlay.open { display: flex; }
-
-  .modal {
-    background: white;
-    border-radius: 20px;
-    width: 90%;
-    max-width: 680px;
-    max-height: 85vh;
-    overflow-y: auto;
-    animation: fadeUp 0.3s ease;
-  }
-
-  .modal-header {
-    background: var(--navy);
-    color: white;
-    padding: 24px 28px;
-    border-radius: 20px 20px 0 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .modal-title { font-family: 'Playfair Display', serif; font-size: 18px; }
-
-  .btn-close {
-    background: rgba(255,255,255,0.15);
-    border: none;
-    color: white;
-    width: 32px; height: 32px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 16px;
-    display: flex; align-items: center; justify-content: center;
-  }
-
-  .modal-body { padding: 24px 28px; }
-
-  .modal-score-row {
-    display: flex;
-    gap: 16px;
-    margin-bottom: 20px;
-  }
-
-  .modal-stat {
-    flex: 1;
-    background: var(--cream);
-    border-radius: 12px;
-    padding: 16px;
-    text-align: center;
-  }
-
-  .modal-stat-val {
-    font-family: 'Playfair Display', serif;
-    font-size: 28px;
-    font-weight: 700;
-  }
-
-  .modal-stat-val.c { color: var(--green); }
-  .modal-stat-val.w { color: var(--red); }
-
-  .modal-stat-lbl { font-size: 12px; color: rgba(26,35,64,0.45); margin-top: 3px; }
-
-  .modal-answers { display: flex; flex-direction: column; gap: 8px; }
-
-  .modal-answer-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 10px 14px;
-    border-radius: 10px;
-    font-size: 13px;
-  }
-  .modal-answer-row.c { background: rgba(45,106,79,0.07); }
-  .modal-answer-row.w { background: rgba(230,57,70,0.07); }
-  .modal-answer-row.b { background: var(--cream); }
-
-  .modal-q-n {
-    width: 28px; height: 28px;
-    border-radius: 6px;
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 700;
-    font-size: 12px;
-    flex-shrink: 0;
-  }
-  .modal-answer-row.c .modal-q-n { background: rgba(45,106,79,0.15); color: var(--green); }
-  .modal-answer-row.w .modal-q-n { background: rgba(230,57,70,0.15); color: var(--red); }
-  .modal-answer-row.b .modal-q-n { background: var(--light-gray); color: rgba(26,35,64,0.3); }
-
-  .no-students { display: none; }
-
-  @media (max-width: 600px) {
-    .login-card { width: 95%; padding: 32px 24px; }
-    .stats-row { grid-template-columns: repeat(2,1fr); }
-    .result-summary { grid-template-columns: repeat(3,1fr); }
-    .exam-header { padding: 14px 16px; }
-    .exam-body { padding: 24px 12px 100px; }
-    .teacher-body { padding: 20px 12px; }
+  /* LOGIN */
+  #loginScreen { background: var(--navy); align-items: center; justify-content: center; position: relative; overflow: hidden; }
+  #loginScreen::before { content:''; position:absolute; width:600px; height:600px; background:radial-gradient(circle,rgba(42,157,143,0.2) 0%,transparent 70%); top:-100px; right:-100px; border-radius:50%; }
+  #loginScreen::after { content:''; position:absolute; width:400px; height:400px; background:radial-gradient(circle,rgba(233,196,106,0.1) 0%,transparent 70%); bottom:-50px; left:-50px; border-radius:50%; }
+
+  .login-card { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:24px; padding:48px; width:440px; backdrop-filter:blur(20px); position:relative; z-index:1; animation:fadeUp 0.6s ease; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+
+  .login-badge { display:inline-block; background:var(--teal); color:white; font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase; padding:6px 14px; border-radius:20px; margin-bottom:20px; }
+  .login-title { font-family:'Playfair Display',serif; font-size:26px; color:white; line-height:1.3; margin-bottom:8px; }
+  .login-sub { color:rgba(255,255,255,0.5); font-size:14px; margin-bottom:32px; }
+
+  .role-tabs { display:flex; gap:8px; margin-bottom:28px; background:rgba(255,255,255,0.05); padding:4px; border-radius:12px; }
+  .role-tab { flex:1; padding:10px; border:none; border-radius:9px; cursor:pointer; font-family:'DM Sans',sans-serif; font-size:14px; font-weight:500; transition:all 0.2s; background:transparent; color:rgba(255,255,255,0.5); }
+  .role-tab.active { background:var(--teal); color:white; }
+
+  .form-group { margin-bottom:18px; }
+  .form-label { display:block; color:rgba(255,255,255,0.6); font-size:12px; font-weight:500; letter-spacing:1px; text-transform:uppercase; margin-bottom:8px; }
+  .form-input { width:100%; padding:14px 18px; background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.1); border-radius:12px; color:white; font-family:'DM Sans',sans-serif; font-size:15px; outline:none; transition:border-color 0.2s; }
+  .form-input:focus { border-color:var(--teal); }
+  .form-input::placeholder { color:rgba(255,255,255,0.25); }
+
+  .btn-primary { width:100%; padding:15px; background:var(--teal); color:white; border:none; border-radius:12px; font-family:'DM Sans',sans-serif; font-size:16px; font-weight:600; cursor:pointer; transition:all 0.2s; margin-top:8px; }
+  .btn-primary:hover { background:var(--teal-light); transform:translateY(-1px); }
+  .btn-primary:disabled { opacity:0.6; cursor:not-allowed; transform:none; }
+
+  .error-msg { color:#ff6b6b; font-size:13px; margin-top:8px; display:none; }
+  .info-msg { color:rgba(255,255,255,0.5); font-size:12px; margin-top:12px; text-align:center; }
+
+  /* EXAM */
+  #examScreen { background:var(--cream); }
+  .exam-header { background:var(--navy); color:white; padding:20px 32px; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:10; }
+  .exam-header-title { font-family:'Playfair Display',serif; font-size:18px; }
+  .exam-header-info { display:flex; align-items:center; gap:20px; font-size:14px; color:rgba(255,255,255,0.7); }
+  .student-name-badge { background:var(--teal); color:white; padding:6px 14px; border-radius:20px; font-size:13px; font-weight:500; }
+
+  .exam-body { max-width:760px; margin:0 auto; padding:40px 20px 100px; }
+
+  .progress-bar-wrap { background:white; border-radius:12px; padding:20px 24px; margin-bottom:32px; box-shadow:0 2px 12px rgba(0,0,0,0.06); }
+  .progress-info { display:flex; justify-content:space-between; font-size:13px; color:rgba(26,35,64,0.5); margin-bottom:10px; }
+  .progress-track { height:6px; background:var(--light-gray); border-radius:3px; overflow:hidden; }
+  .progress-fill { height:100%; background:linear-gradient(90deg,var(--teal),var(--teal-light)); border-radius:3px; transition:width 0.4s ease; }
+
+  .question-card { background:white; border-radius:20px; padding:36px; box-shadow:0 2px 16px rgba(0,0,0,0.06); animation:slideIn 0.3s ease; }
+  @keyframes slideIn { from{opacity:0;transform:translateX(20px)} to{opacity:1;transform:translateX(0)} }
+
+  .question-num { font-size:12px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--teal); margin-bottom:12px; }
+  .question-text { font-size:17px; font-weight:500; line-height:1.65; color:var(--navy); margin-bottom:28px; }
+
+  .options-list { display:flex; flex-direction:column; gap:12px; }
+  .option-btn { display:flex; align-items:center; gap:14px; padding:16px 20px; border:2px solid var(--light-gray); border-radius:14px; background:var(--cream); cursor:pointer; transition:all 0.2s; text-align:left; font-family:'DM Sans',sans-serif; font-size:15px; color:var(--navy); }
+  .option-btn:hover { border-color:var(--teal); background:rgba(42,157,143,0.05); }
+  .option-btn.selected { border-color:var(--teal); background:rgba(42,157,143,0.08); }
+
+  .option-letter { width:32px; height:32px; border-radius:50%; background:white; border:2px solid currentColor; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:13px; flex-shrink:0; color:rgba(26,35,64,0.4); transition:all 0.2s; }
+  .option-btn.selected .option-letter { background:var(--teal); border-color:var(--teal); color:white; }
+
+  .nav-bar { position:fixed; bottom:0; left:0; right:0; background:white; border-top:1px solid var(--light-gray); padding:16px 32px; display:flex; justify-content:space-between; align-items:center; z-index:10; }
+  .btn-nav { padding:12px 28px; border-radius:12px; border:none; cursor:pointer; font-family:'DM Sans',sans-serif; font-size:15px; font-weight:600; transition:all 0.2s; }
+  .btn-prev { background:var(--light-gray); color:var(--navy); }
+  .btn-prev:hover { background:#e0ddd6; }
+  .btn-next { background:var(--navy); color:white; }
+  .btn-next:hover { background:#2a3550; }
+  .btn-submit { background:var(--teal); color:white; }
+  .btn-submit:hover { background:var(--teal-light); }
+
+  .question-dots { display:flex; gap:6px; flex-wrap:wrap; max-width:300px; justify-content:center; }
+  .q-dot { width:10px; height:10px; border-radius:50%; background:var(--light-gray); border:1.5px solid transparent; transition:all 0.2s; }
+  .q-dot.answered { background:var(--teal); }
+  .q-dot.current { border-color:var(--navy); transform:scale(1.3); }
+
+  /* SAVING OVERLAY */
+  .saving-overlay { position:fixed; inset:0; background:rgba(26,35,64,0.85); display:flex; flex-direction:column; align-items:center; justify-content:center; z-index:999; color:white; gap:16px; }
+  .spinner { width:48px; height:48px; border:4px solid rgba(255,255,255,0.2); border-top-color:var(--teal); border-radius:50%; animation:spin 0.8s linear infinite; }
+  @keyframes spin { to{transform:rotate(360deg)} }
+
+  /* RESULT */
+  #resultScreen { background:var(--cream); }
+  .result-header { background:var(--navy); padding:32px; text-align:center; color:white; }
+  .result-score-circle { width:140px; height:140px; border-radius:50%; border:6px solid var(--teal); display:flex; flex-direction:column; align-items:center; justify-content:center; margin:24px auto; background:rgba(42,157,143,0.1); }
+  .score-number { font-family:'Playfair Display',serif; font-size:42px; font-weight:700; color:var(--teal-light); line-height:1; }
+  .score-label { font-size:12px; color:rgba(255,255,255,0.5); margin-top:4px; }
+
+  .result-body { max-width:760px; margin:0 auto; padding:32px 20px; }
+  .result-summary { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:32px; }
+  .summary-card { background:white; border-radius:16px; padding:20px; text-align:center; box-shadow:0 2px 12px rgba(0,0,0,0.06); }
+  .summary-num { font-family:'Playfair Display',serif; font-size:32px; font-weight:700; }
+  .summary-num.correct { color:var(--green); }
+  .summary-num.wrong { color:var(--red); }
+  .summary-num.blank { color:rgba(26,35,64,0.3); }
+  .summary-lbl { font-size:12px; color:rgba(26,35,64,0.5); margin-top:4px; }
+
+  .answers-grid { display:flex; flex-direction:column; gap:12px; }
+  .answer-row { background:white; border-radius:14px; padding:16px 20px; display:flex; align-items:center; gap:16px; box-shadow:0 1px 8px rgba(0,0,0,0.05); border-left:4px solid transparent; }
+  .answer-row.correct { border-left-color:var(--green); }
+  .answer-row.wrong { border-left-color:var(--red); }
+  .answer-row.blank { border-left-color:rgba(26,35,64,0.15); }
+  .answer-q-num { width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:14px; flex-shrink:0; }
+  .answer-row.correct .answer-q-num { background:rgba(45,106,79,0.1); color:var(--green); }
+  .answer-row.wrong .answer-q-num { background:rgba(230,57,70,0.1); color:var(--red); }
+  .answer-row.blank .answer-q-num { background:var(--light-gray); color:rgba(26,35,64,0.3); }
+  .answer-detail { flex:1; }
+  .answer-q-text { font-size:13px; color:var(--navy); font-weight:500; line-height:1.4; }
+  .answer-choices { display:flex; gap:12px; margin-top:6px; font-size:12px; }
+  .answer-given { color:var(--red); }
+  .answer-correct-lbl { color:var(--green); }
+
+  /* TEACHER */
+  #teacherScreen { background:var(--cream); }
+  .teacher-header { background:var(--navy); padding:20px 32px; display:flex; align-items:center; justify-content:space-between; }
+  .teacher-header-title { font-family:'Playfair Display',serif; font-size:20px; color:white; }
+  .btn-logout { background:rgba(255,255,255,0.1); color:white; border:1px solid rgba(255,255,255,0.2); padding:8px 18px; border-radius:8px; cursor:pointer; font-family:'DM Sans',sans-serif; font-size:14px; transition:all 0.2s; }
+  .btn-logout:hover { background:rgba(255,255,255,0.2); }
+
+  .teacher-body { max-width:960px; margin:0 auto; padding:32px 20px; }
+  .panel-tabs { display:flex; gap:8px; margin-bottom:28px; border-bottom:2px solid var(--light-gray); }
+  .panel-tab { padding:10px 24px; border:none; background:none; cursor:pointer; font-family:'DM Sans',sans-serif; font-size:15px; font-weight:500; color:rgba(26,35,64,0.4); border-bottom:2px solid transparent; margin-bottom:-2px; transition:all 0.2s; }
+  .panel-tab.active { color:var(--teal); border-bottom-color:var(--teal); }
+  .panel-content { display:none; }
+  .panel-content.active { display:block; }
+
+  .stats-row { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:28px; }
+  .stat-card { background:white; border-radius:16px; padding:20px 24px; box-shadow:0 2px 12px rgba(0,0,0,0.06); }
+  .stat-value { font-family:'Playfair Display',serif; font-size:36px; font-weight:700; color:var(--navy); }
+  .stat-lbl { font-size:13px; color:rgba(26,35,64,0.45); margin-top:4px; }
+
+  .section-title { font-family:'Playfair Display',serif; font-size:20px; margin-bottom:16px; color:var(--navy); }
+
+  .student-table { background:white; border-radius:16px; overflow:hidden; box-shadow:0 2px 12px rgba(0,0,0,0.06); }
+  .student-table table { width:100%; border-collapse:collapse; }
+  .student-table th { background:var(--navy); color:white; padding:14px 20px; text-align:left; font-size:13px; font-weight:500; }
+  .student-table td { padding:14px 20px; border-bottom:1px solid var(--light-gray); font-size:14px; }
+  .student-table tr:last-child td { border-bottom:none; }
+  .student-table tr:hover td { background:var(--cream); }
+
+  .score-badge { display:inline-block; padding:4px 12px; border-radius:20px; font-weight:600; font-size:13px; }
+  .score-badge.high { background:rgba(45,106,79,0.12); color:var(--green); }
+  .score-badge.mid { background:rgba(233,196,106,0.2); color:#b8860b; }
+  .score-badge.low { background:rgba(230,57,70,0.1); color:var(--red); }
+
+  .btn-detail { padding:6px 14px; background:var(--cream); border:1px solid var(--light-gray); border-radius:8px; cursor:pointer; font-family:'DM Sans',sans-serif; font-size:13px; color:var(--navy); transition:all 0.2s; }
+  .btn-detail:hover { background:var(--teal); color:white; border-color:var(--teal); }
+  .btn-delete { padding:6px 14px; background:rgba(230,57,70,0.08); border:1px solid rgba(230,57,70,0.2); border-radius:8px; cursor:pointer; font-family:'DM Sans',sans-serif; font-size:13px; color:var(--red); transition:all 0.2s; margin-left:6px; }
+  .btn-delete:hover { background:var(--red); color:white; }
+
+  .q-analysis-grid { display:flex; flex-direction:column; gap:10px; }
+  .q-analysis-row { background:white; border-radius:12px; padding:14px 20px; display:flex; align-items:center; gap:16px; box-shadow:0 1px 6px rgba(0,0,0,0.05); }
+  .q-num-badge { width:32px; height:32px; border-radius:8px; background:var(--navy); color:white; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; flex-shrink:0; }
+  .q-analysis-bar-wrap { flex:1; height:8px; background:var(--light-gray); border-radius:4px; overflow:hidden; }
+  .q-analysis-bar { height:100%; border-radius:4px; transition:width 0.6s ease; }
+  .q-analysis-pct { font-size:14px; font-weight:600; width:42px; text-align:right; }
+
+  .empty-state { text-align:center; padding:60px 20px; color:rgba(26,35,64,0.35); }
+  .empty-state .icon { font-size:48px; margin-bottom:12px; }
+
+  .refresh-btn { display:flex; align-items:center; gap:8px; padding:10px 20px; background:white; border:1px solid var(--light-gray); border-radius:10px; cursor:pointer; font-family:'DM Sans',sans-serif; font-size:14px; color:var(--navy); margin-bottom:20px; box-shadow:0 1px 6px rgba(0,0,0,0.05); transition:all 0.2s; }
+  .refresh-btn:hover { border-color:var(--teal); color:var(--teal); }
+
+  /* MODAL */
+  .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:100; align-items:center; justify-content:center; }
+  .modal-overlay.open { display:flex; }
+  .modal { background:white; border-radius:20px; width:90%; max-width:680px; max-height:85vh; overflow-y:auto; animation:fadeUp 0.3s ease; }
+  .modal-header { background:var(--navy); color:white; padding:24px 28px; border-radius:20px 20px 0 0; display:flex; justify-content:space-between; align-items:center; }
+  .modal-title { font-family:'Playfair Display',serif; font-size:18px; }
+  .btn-close { background:rgba(255,255,255,0.15); border:none; color:white; width:32px; height:32px; border-radius:50%; cursor:pointer; font-size:16px; display:flex; align-items:center; justify-content:center; }
+  .modal-body { padding:24px 28px; }
+  .modal-score-row { display:flex; gap:16px; margin-bottom:20px; }
+  .modal-stat { flex:1; background:var(--cream); border-radius:12px; padding:16px; text-align:center; }
+  .modal-stat-val { font-family:'Playfair Display',serif; font-size:28px; font-weight:700; }
+  .modal-stat-val.c { color:var(--green); }
+  .modal-stat-val.w { color:var(--red); }
+  .modal-stat-lbl { font-size:12px; color:rgba(26,35,64,0.45); margin-top:3px; }
+  .modal-answers { display:flex; flex-direction:column; gap:8px; }
+  .modal-answer-row { display:flex; align-items:center; gap:12px; padding:10px 14px; border-radius:10px; font-size:13px; }
+  .modal-answer-row.c { background:rgba(45,106,79,0.07); }
+  .modal-answer-row.w { background:rgba(230,57,70,0.07); }
+  .modal-answer-row.b { background:var(--cream); }
+  .modal-q-n { width:28px; height:28px; border-radius:6px; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:12px; flex-shrink:0; }
+  .modal-answer-row.c .modal-q-n { background:rgba(45,106,79,0.15); color:var(--green); }
+  .modal-answer-row.w .modal-q-n { background:rgba(230,57,70,0.15); color:var(--red); }
+  .modal-answer-row.b .modal-q-n { background:var(--light-gray); color:rgba(26,35,64,0.3); }
+
+  @media(max-width:600px) {
+    .login-card { width:95%; padding:32px 24px; }
+    .stats-row { grid-template-columns:repeat(2,1fr); }
+    .result-summary { grid-template-columns:repeat(3,1fr); }
+    .exam-header { padding:14px 16px; }
+    .exam-body { padding:24px 12px 100px; }
+    .teacher-body { padding:20px 12px; }
   }
 </style>
 </head>
 <body>
 
-<!-- ══════════════ LOGIN ══════════════ -->
+<!-- LOGIN -->
 <div id="loginScreen" class="screen active">
   <div class="login-card">
     <span class="login-badge">Seminer Son Testi</span>
     <h1 class="login-title">Türkiye Yüzyılı Maarif Modeli<br>Ölçme ve Değerlendirme</h1>
     <p class="login-sub">Devam etmek için rolünüzü seçin</p>
-
     <div class="role-tabs">
       <button class="role-tab active" onclick="setRole('student')">👨‍🎓 Öğrenci</button>
       <button class="role-tab" onclick="setRole('teacher')">👩‍🏫 Öğretmen</button>
     </div>
-
     <div id="studentFields">
       <div class="form-group">
         <label class="form-label">Adınız Soyadınız</label>
-        <input type="text" id="studentName" class="form-input" placeholder="Ahmet Yılmaz">
+        <input type="text" id="studentName" class="form-input" placeholder="Adınızı giriniz">
       </div>
-      <button class="btn-primary" onclick="startExam()">Sınava Başla →</button>
+      <button class="btn-primary" id="startBtn" onclick="startExam()">Sınava Başla →</button>
       <div id="studentError" class="error-msg">Lütfen adınızı soyadınızı girin.</div>
     </div>
-
-    <div id="teacherFields" style="display:none;">
+    <div id="teacherFields" style="display:none">
       <div class="form-group">
         <label class="form-label">Şifre</label>
         <input type="password" id="teacherPass" class="form-input" placeholder="••••••••" onkeydown="if(event.key==='Enter')teacherLogin()">
@@ -860,7 +246,7 @@
   </div>
 </div>
 
-<!-- ══════════════ EXAM ══════════════ -->
+<!-- EXAM -->
 <div id="examScreen" class="screen">
   <div class="exam-header">
     <div class="exam-header-title">Ölçme ve Değerlendirme Sınavı</div>
@@ -869,7 +255,6 @@
       <span id="headerProgress">Soru 1 / 25</span>
     </div>
   </div>
-
   <div class="exam-body">
     <div class="progress-bar-wrap">
       <div class="progress-info">
@@ -880,14 +265,12 @@
         <div class="progress-fill" id="progressFill" style="width:0%"></div>
       </div>
     </div>
-
     <div class="question-card" id="questionCard">
       <div class="question-num" id="qNum">SORU 1 / 25</div>
       <div class="question-text" id="qText"></div>
       <div class="options-list" id="optionsList"></div>
     </div>
   </div>
-
   <div class="nav-bar">
     <button class="btn-nav btn-prev" onclick="prevQ()" id="btnPrev">← Önceki</button>
     <div class="question-dots" id="qDots"></div>
@@ -895,7 +278,7 @@
   </div>
 </div>
 
-<!-- ══════════════ RESULT (öğrenci) ══════════════ -->
+<!-- RESULT -->
 <div id="resultScreen" class="screen">
   <div class="result-header">
     <div class="login-badge">Sınav Tamamlandı</div>
@@ -905,35 +288,26 @@
     </div>
     <div style="color:rgba(255,255,255,0.6);font-size:14px;" id="resultName"></div>
   </div>
-
   <div class="result-body">
     <div class="result-summary">
-      <div class="summary-card">
-        <div class="summary-num correct" id="resCorrect">0</div>
-        <div class="summary-lbl">✅ Doğru</div>
-      </div>
-      <div class="summary-card">
-        <div class="summary-num wrong" id="resWrong">0</div>
-        <div class="summary-lbl">❌ Yanlış</div>
-      </div>
-      <div class="summary-card">
-        <div class="summary-num blank" id="resBlank">0</div>
-        <div class="summary-lbl">⬜ Boş</div>
-      </div>
+      <div class="summary-card"><div class="summary-num correct" id="resCorrect">0</div><div class="summary-lbl">✅ Doğru</div></div>
+      <div class="summary-card"><div class="summary-num wrong" id="resWrong">0</div><div class="summary-lbl">❌ Yanlış</div></div>
+      <div class="summary-card"><div class="summary-num blank" id="resBlank">0</div><div class="summary-lbl">⬜ Boş</div></div>
     </div>
-
     <h2 class="section-title">Soru Analizi</h2>
     <div class="answers-grid" id="studentAnswersGrid"></div>
   </div>
 </div>
 
-<!-- ══════════════ TEACHER PANEL ══════════════ -->
+<!-- TEACHER -->
 <div id="teacherScreen" class="screen">
   <div class="teacher-header">
     <div class="teacher-header-title">👩‍🏫 Öğretmen Paneli</div>
-    <button class="btn-logout" onclick="logout()">Çıkış Yap</button>
+    <div style="display:flex;gap:10px;align-items:center;">
+      <button class="refresh-btn" onclick="loadAndRender()" style="margin-bottom:0;padding:8px 16px;font-size:13px;">🔄 Yenile</button>
+      <button class="btn-logout" onclick="logout()">Çıkış Yap</button>
+    </div>
   </div>
-
   <div class="teacher-body">
     <div class="panel-tabs">
       <button class="panel-tab active" onclick="switchTab('overview')">Genel Bakış</button>
@@ -941,81 +315,35 @@
       <button class="panel-tab" onclick="switchTab('questions')">Soru Analizi</button>
     </div>
 
-    <!-- OVERVIEW -->
     <div class="panel-content active" id="tab-overview">
       <div class="stats-row">
-        <div class="stat-card">
-          <div class="stat-value" id="tStatCount">0</div>
-          <div class="stat-lbl">Katılan Öğrenci</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value" id="tStatAvg">—</div>
-          <div class="stat-lbl">Ortalama Puan</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value" id="tStatHigh">—</div>
-          <div class="stat-lbl">En Yüksek</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value" id="tStatLow">—</div>
-          <div class="stat-lbl">En Düşük</div>
-        </div>
+        <div class="stat-card"><div class="stat-value" id="tStatCount">0</div><div class="stat-lbl">Katılan Öğrenci</div></div>
+        <div class="stat-card"><div class="stat-value" id="tStatAvg">—</div><div class="stat-lbl">Ortalama Puan</div></div>
+        <div class="stat-card"><div class="stat-value" id="tStatHigh">—</div><div class="stat-lbl">En Yüksek</div></div>
+        <div class="stat-card"><div class="stat-value" id="tStatLow">—</div><div class="stat-lbl">En Düşük</div></div>
       </div>
-
-      <div id="overviewEmpty" class="empty-state">
-        <div class="icon">📋</div>
-        <p>Henüz sınava giren öğrenci yok.</p>
-      </div>
-
-      <div id="overviewChart" style="display:none;">
-        <h2 class="section-title">Puan Dağılımı</h2>
+      <div id="overviewEmpty" class="empty-state"><div class="icon">📋</div><p>Henüz sınava giren öğrenci yok.</p></div>
+      <div id="overviewChart" style="display:none">
+        <h2 class="section-title">Puan Sıralaması</h2>
         <div class="student-table">
-          <table>
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Öğrenci</th>
-                <th>Puan</th>
-                <th>Doğru</th>
-                <th>Yanlış</th>
-                <th>Boş</th>
-              </tr>
-            </thead>
-            <tbody id="overviewTableBody"></tbody>
-          </table>
+          <table><thead><tr><th>#</th><th>Öğrenci</th><th>Puan</th><th>Doğru</th><th>Yanlış</th><th>Boş</th></tr></thead>
+          <tbody id="overviewTableBody"></tbody></table>
         </div>
       </div>
     </div>
 
-    <!-- STUDENTS -->
     <div class="panel-content" id="tab-students">
       <h2 class="section-title">Öğrenci Listesi</h2>
-      <div id="studentsEmpty" class="empty-state">
-        <div class="icon">👥</div>
-        <p>Henüz sınava giren öğrenci yok.</p>
-      </div>
-      <div class="student-table" id="studentTableWrap" style="display:none;">
-        <table>
-          <thead>
-            <tr>
-              <th>Öğrenci Adı</th>
-              <th>Puan</th>
-              <th>Doğru / Yanlış / Boş</th>
-              <th>Detay</th>
-            </tr>
-          </thead>
-          <tbody id="studentTableBody"></tbody>
-        </table>
+      <div id="studentsEmpty" class="empty-state"><div class="icon">👥</div><p>Henüz sınava giren öğrenci yok.</p></div>
+      <div class="student-table" id="studentTableWrap" style="display:none">
+        <table><thead><tr><th>Öğrenci Adı</th><th>Puan</th><th>D / Y / B</th><th>İşlemler</th></tr></thead>
+        <tbody id="studentTableBody"></tbody></table>
       </div>
     </div>
 
-    <!-- QUESTIONS -->
     <div class="panel-content" id="tab-questions">
       <h2 class="section-title">Soru Bazlı Doğru Oranı</h2>
-      <div id="qAnalysisEmpty" class="empty-state">
-        <div class="icon">📊</div>
-        <p>Henüz veri yok.</p>
-      </div>
+      <div id="qAnalysisEmpty" class="empty-state"><div class="icon">📊</div><p>Henüz veri yok.</p></div>
       <div class="q-analysis-grid" id="qAnalysisGrid"></div>
     </div>
   </div>
@@ -1030,18 +358,9 @@
     </div>
     <div class="modal-body">
       <div class="modal-score-row">
-        <div class="modal-stat">
-          <div class="modal-stat-val" id="modalScore">0</div>
-          <div class="modal-stat-lbl">Puan</div>
-        </div>
-        <div class="modal-stat">
-          <div class="modal-stat-val c" id="modalCorrect">0</div>
-          <div class="modal-stat-lbl">✅ Doğru</div>
-        </div>
-        <div class="modal-stat">
-          <div class="modal-stat-val w" id="modalWrong">0</div>
-          <div class="modal-stat-lbl">❌ Yanlış</div>
-        </div>
+        <div class="modal-stat"><div class="modal-stat-val" id="modalScore">0</div><div class="modal-stat-lbl">Puan</div></div>
+        <div class="modal-stat"><div class="modal-stat-val c" id="modalCorrect">0</div><div class="modal-stat-lbl">✅ Doğru</div></div>
+        <div class="modal-stat"><div class="modal-stat-val w" id="modalWrong">0</div><div class="modal-stat-lbl">❌ Yanlış</div></div>
       </div>
       <div class="modal-answers" id="modalAnswers"></div>
     </div>
@@ -1049,287 +368,79 @@
 </div>
 
 <script>
-// ═══════════════════════════════════════════
-// DATA
-// ═══════════════════════════════════════════
 const TEACHER_PASS = 'ogretmen123';
+const STORAGE_KEY = 'sinav_results_v1';
 
-const ANSWER_KEY = {
-  1:'A',2:'B',3:'C',4:'D',5:'E',
-  6:'A',7:'B',8:'C',9:'D',10:'C',
-  11:'A',12:'B',13:'C',14:'D',15:'E',
-  16:'A',17:'B',18:'C',19:'D',20:'E',
-  21:'A',22:'B',23:'C',24:'D',25:'E'
-};
+const ANSWER_KEY = {1:'A',2:'B',3:'C',4:'D',5:'E',6:'A',7:'B',8:'C',9:'D',10:'C',11:'A',12:'B',13:'C',14:'D',15:'E',16:'A',17:'B',18:'C',19:'D',20:'E',21:'A',22:'B',23:'C',24:'D',25:'E'};
 
 const QUESTIONS = [
-  {
-    text: "1- Ölçme ve değerlendirme süreçleri arasındaki temel ayrım nedir?",
-    options: [
-      "Ölçme kanıt toplama süreciyken değerlendirme, bu kanıtlara dayanarak karar verme sürecidir.",
-      "Ölçme öğretmen tarafından, değerlendirme yalnızca öğrenci tarafından yapılır.",
-      "Değerlendirme sayısal, ölçme ise sözel bir süreçtir.",
-      "Ölçme ve değerlendirme tamamen birbirinden bağımsız süreçlerdir.",
-      "Ölçme sınıf içinde, değerlendirme yalnızca okul dışında gerçekleştirilir."
-    ]
-  },
-  {
-    text: "2- Bir öğretmen ders işlenirken tahtaya 'Bugüne kadar öğrendiklerim / Hâlâ kafamı karıştıran / Bir sonraki derse sorum' şeklinde üç sütun açıyor ve öğrencilerden yapışkanlı not kâğıdına yazmalarını istiyor. Bu uygulama hangi değerlendirme türüne en iyi örnek oluşturur?",
-    options: [
-      "Tanıma-yerleştirmeye yönelik değerlendirme.",
-      "Biçimlendirici değerlendirme — öğretimi anlık olarak yönlendirmek amacıyla öğrenme kanıtı toplama.",
-      "Düzey belirleyici değerlendirme — dönem sonu başarısını ölçme.",
-      "Portfolyo değerlendirmesi.",
-      "Bütüncül rubrik değerlendirmesi."
-    ]
-  },
-  {
-    text: "3- Aşağıdakilerden hangisi biçimlendirici ve düzey belirleyici değerlendirmeyi birbirinden ayıran en temel özelliktir?",
-    options: [
-      "Biçimlendirici değerlendirme yalnızca yazılı sınavlarla yapılır.",
-      "Düzey belirleyici değerlendirmede öğrenciler hiçbir zaman birbirleriyle kıyaslanmaz.",
-      "Biçimlendirici değerlendirme öğrenme sürecini geliştirmeyi, düzey belirleyici değerlendirme ise dönem sonunda başarı düzeyini belirlemeyi amaçlar.",
-      "Biçimlendirici değerlendirme sadece ilkokul, düzey belirleyici ise sadece lise için kullanılır.",
-      "Düzey belirleyici değerlendirmede not verilmez."
-    ]
-  },
-  {
-    text: "4- Bir öğretmen dönem başında öğrencilerine kısa bir test uyguluyor. Amacı öğrencilerin konuya giriş yapabilmek için hangi ön bilgilere sahip olduğunu anlamak. Bu değerlendirme hangi türe karşılık gelmektedir?",
-    options: [
-      "Düzey belirleyici değerlendirme.",
-      "Biçimlendirici değerlendirme.",
-      "Portfolyo değerlendirmesi.",
-      "Tanıma-yerleştirmeye yönelik değerlendirme.",
-      "Öz değerlendirme."
-    ]
-  },
-  {
-    text: "5- Düzey belirleyici (özetleyici) değerlendirme ile ilgili aşağıdakilerden hangisi doğrudur?",
-    options: [
-      "Öğretim süreci devam ederken her ders sonunda yapılır.",
-      "Amacı öğrenme eksiklerini tespit edip gidermektir.",
-      "Öğrenciler arasında hiçbir kıyaslama yapılmaz.",
-      "Öğrencilere not verilmez, yalnızca geri bildirim verilir.",
-      "Ders veya dönem sonunda öğrencilerin kazanımları ne ölçüde edindiğini belirlemek için kullanılır."
-    ]
-  },
-  {
-    text: "6- Elektrik-Elektronik öğretmeni, öğrencilerinin devre çizimini tamamlamalarının hemen ardından her öğrenciye kısa sözlü geri bildirim veriyor: 'Direncin yönünü doğru çizdin, ancak kondansatörün bağlantısını tekrar kontrol et.' Bu süreçte gerçekleştirilen değerlendirme hangi amaca hizmet etmektedir?",
-    options: [
-      "Öğrencinin anlık hatasını tespit edip düzeltmesine rehberlik etmek — biçimlendirici değerlendirme.",
-      "Dönem sonu notuna veri sağlamak — düzey belirleyici değerlendirme.",
-      "Öğrencinin sınıf içindeki sıralamasını belirlemek.",
-      "Ünite sonunda genel başarıyı ölçmek.",
-      "Portfolyo için kanıt toplamak."
-    ]
-  },
-  {
-    text: "7- Eğitimde 'dolaylı ölçme' kavramı hangi durumu ifade eder?",
-    options: [
-      "Öğrencinin sınavda gözetmensiz bırakılması.",
-      "Ölçülmek istenen özelliğin doğrudan kendisiyle değil, başka bir değişken aracılığıyla gözlemlenmesi.",
-      "Değerlendirmenin dijital araçlarla yapılması.",
-      "Öğretmenin değerlendirme sürecini bir asistana devretmesi.",
-      "Sınavın veliler tarafından uygulanması."
-    ]
-  },
-  {
-    text: "8- Gıda Teknolojisi öğretmeni, öğrencilerin ekmek mayalama sürecindeki adımları doğru uygulayıp uygulamadığını kontrol etmek istiyor. Her adımın yapılıp yapılmadığını evet/hayır şeklinde işaretleyeceği bir form hazırlıyor. Öğretmenin kullandığı bu puanlama aracı hangisidir?",
-    options: [
-      "Dereceli puanlama anahtarı (rubrik).",
-      "Dereceleme ölçeği.",
-      "Kontrol listesi.",
-      "Tanılayıcı dallanmış ağaç.",
-      "Yapılandırılmış grid."
-    ]
-  },
-  {
-    text: "9- Beden Eğitimi öğretmeni, öğrencilerin basketbol pas tekniğini geliştirmesi için her antrenman sonrası 'İyi giden: … / Geliştirmem gereken: … / Bir sonraki hedefim: …' şeklinde öz değerlendirme formu doldurmalarını istiyor. Bu uygulamanın temel amacı nedir?",
-    options: [
-      "Öğrencinin dönem sonu notunu yükseltmesi.",
-      "Öğretmenin velilere rapor hazırlamasını kolaylaştırması.",
-      "Öğrencinin sınıf içi sıralamasını belirlemesi.",
-      "Öğrencinin kendi öğrenmesini izlemesini ve öz düzenleme becerisini geliştirmesini sağlaması.",
-      "Dersin müfredata uygunluğunu denetlemesi."
-    ]
-  },
-  {
-    text: "10- Müzik öğretmeni, dönem boyunca çalışmaları piyano eğitimi bir değerlendirme listesi kullanarak değerlendiriyor: ritmi gösteriyor, nota okuması ve yorumlama boyutları ayrı ayrı puanlanıyor. Bu değerlendirme hangi türdür ve temel amacı nedir?",
-    options: [
-      "Biçimlendirici değerlendirme — öğrencinin anlık hatasını tespit etmek.",
-      "Tanıma-yerleştirmeye yönelik değerlendirme — ön koşul bilgileri ölçmek.",
-      "Biçimlendirici değerlendirme — piyano tekniğini geliştirmek.",
-      "Öz değerlendirme — öğrencinin kendi performansını izlemesi.",
-      "Düzey belirleyici değerlendirme — dönem sonunda öğrencinin ulaştığı performans düzeyini belirlemek."
-    ]
-  },
-  {
-    text: "11- Çoktan seçmeli maddelerde çeldirici nasıl olmalıdır?",
-    options: [
-      "Yalnızca ölçülen beceriye sahip olmayan öğrencilerin yanıltıcı bulabileceği, makul ama yanlış seçenekler olmalıdır.",
-      "Doğru cevabı işaret eden bir ipucu içermelidir.",
-      "Olabildiğince kısa ve belirsiz yazılmalıdır.",
-      "Öğrencilerin dikkatini dağıtmak için kasıtlı hatalar barındırmalıdır.",
-      "Doğru cevapla tamamen ilgisiz olmalıdır."
-    ]
-  },
-  {
-    text: "12- Aşağıdakilerden hangisi etkili geri bildirimin özelliği değildir?",
-    options: [
-      "Göreve özgü olması.",
-      "Öğrenciyi sınıftaki diğer öğrencilerle kıyaslaması.",
-      "Zamanında verilmesi.",
-      "Öğrencinin geliştirebileceği alanlara yönlendirmesi.",
-      "Olumlu bir dil içermesi."
-    ]
-  },
-  {
-    text: "13- Felsefe öğretmeni, öğrencilerden 'Özgür irade var mıdır?' sorusuna ilişkin argüman yazmaları istedi. Kâğıtları toplamadan önce öğrencilere birbirlerinin yazılarını okutarak 'En güçlü argüman nedir? Eksik ne var?' sorularını sordurdu. Bu süreçte kullanılan değerlendirme yaklaşımı hangisidir?",
-    options: [
-      "Düzey belirleyici değerlendirme.",
-      "Tanıma-yerleştirmeye yönelik değerlendirme.",
-      "Akran geri bildirimine dayalı biçimlendirici değerlendirme.",
-      "Portfolyo değerlendirmesi.",
-      "Bütüncül rubrik değerlendirmesi."
-    ]
-  },
-  {
-    text: "14- Kimya öğretmeni, yılın sonunda öğrencilerin 'Asitler ve Bazlar' ünitesindeki tüm kazanımlardan en kritik olanlarını temsil eden bir sınav uyguluyor. Sonuçlar öğrencinin yıl sonu karnesi için kullanılacak. Bu sınav hangi değerlendirme türüne örnektir?",
-    options: [
-      "Biçimlendirici değerlendirme.",
-      "Tanıma-yerleştirmeye yönelik değerlendirme.",
-      "Akran değerlendirmesi.",
-      "Düzey belirleyici değerlendirme (erişi testi).",
-      "Öz değerlendirme."
-    ]
-  },
-  {
-    text: "15- Bir lise öğretmeni aynı sınava üç farklı günde bakan öğrencilerinin puanlarının büyük farklılıklar gösterdiğini fark etti. Bu durum öncelikle hangi ölçme sorununa işaret eder?",
-    options: [
-      "Geçerlik problemi — sınav yanlış özellikleri ölçüyor.",
-      "Kapsam geçerliği problemi — sorular müfredatı yansıtmıyor.",
-      "Kullanışlılık problemi — sınav çok uzun.",
-      "Biçimlendirici değerlendirme yapılmaması.",
-      "Güvenirlik problemi — ölçme sonuçları tutarsız ve tekrarlanabilir değil."
-    ]
-  },
-  {
-    text: "16- Coğrafya öğretmeni, öğrencilerine 12 kutucuklu bir tablo veriyor. Tabloda iklim türleri ve bitki örtüsü görselleri numaralandırılmış. Öğrencilerden 'Hangi numaralar Akdeniz iklimine aittir?' gibi soruları tablodaki numaraları kullanarak cevaplamaları isteniyor. Bu ölçme aracı hangi türdür?",
-    options: [
-      "Yapılandırılmış grid.",
-      "Eşleştirmeli test.",
-      "Çoktan seçmeli test.",
-      "Tanılayıcı dallanmış ağaç.",
-      "Açık uçlu madde."
-    ]
-  },
-  {
-    text: "17- Aşağıdaki geri bildirim örneklerinden hangisi biçimlendirici değerlendirme ilkelerine en uygun olanıdır?",
-    options: [
-      "'Harika bir öğrencisin, bu sınav seni yansıtmıyor.'",
-      "'Devrenin ilk iki adımını doğru bağladın. Üçüncü adımda toprak hattını unutmuşsun — bunu düzeltirsen devre çalışır.'",
-      "'Notun 48. Daha çok çalışmalısın.'",
-      "'Sınıfın geri kalanı bu adımı anlayabildi.'",
-      "'Çok kısa yazmışsın, daha uzun olmalıydı.'"
-    ]
-  },
-  {
-    text: "18- Dereceli puanlama anahtarı (rubrik) ile kontrol listesi arasındaki temel fark nedir?",
-    options: [
-      "Kontrol listesi yalnızca performans görevlerinde kullanılır.",
-      "Rubrik sadece yazılı ödevler için kullanılır.",
-      "Kontrol listesi bir davranışın var olup olmadığını (evet/hayır) belirlerken rubrik performansın hangi düzeyde gerçekleştiğini tanımlar.",
-      "İkisi de tamamen aynı işlevi görür.",
-      "Rubrik öğretmen, kontrol listesi ise öğrenci tarafından kullanılır."
-    ]
-  },
-  {
-    text: "19- Düzey belirleyici (özetleyici) değerlendirme ile biçimlendirici değerlendirme arasındaki en temel fark nedir?",
-    options: [
-      "Düzey belirleyici değerlendirme süreç içinde, biçimlendirici değerlendirme dönem sonunda yapılır.",
-      "Biçimlendirici değerlendirme not içerir, düzey belirleyici değerlendirme içermez.",
-      "Düzey belirleyici değerlendirmede öğrenciler kesinlikle kıyaslanmaz.",
-      "Biçimlendirici değerlendirme öğrenmeyi geliştirmek için süreç içinde yapılırken, düzey belirleyici değerlendirme öğrenmenin gerçekleşip gerçekleşmediğini dönem/yıl sonunda ortaya koymak için uygulanır.",
-      "Biçimlendirici değerlendirme yalnızca öğretmen tarafından yapılabilir.",
-      "Diğer seçenek (6. şık)"
-    ]
-  },
-  {
-    text: "20- Bir ölçme uzmanı şöyle diyor: 'Bir araç güvenilir olabilir ama geçerli olmayabilir; ancak geçerli olmayan araç zaten güvenilir olmaktan çıkar.' Bu ifade ölçme mantığı açısından neyi anlatmaktadır?",
-    options: [
-      "Güvenirlik ve geçerlik birbirinden bağımsız kavramlardır.",
-      "Geçerlik, güvenirliğin her zaman ön koşuludur.",
-      "Güvenilir bir araç mutlaka doğru özelliği ölçer.",
-      "Geçerlik yalnızca yazılı sınavlarda önemlidir.",
-      "Güvenirlik geçerliğin ön koşuludur; tutarsız ölçüm sonuçları üzerine doğru değerlendirme yapılamaz."
-    ]
-  },
-  {
-    text: "21- Gemi Yapımı öğretmeni, öğrencilerin tekne modelini monte etme becerilerini değerlendirmek istiyor. Çoktan seçmeli sınav yerine öğrencileri uygulama sırasında gözlemleyerek puanlama yapmayı tercih ediyor. Bu durumda 'performans değerlendirmesi'nin seçilmesinin temel gerekçesi nedir?",
-    options: [
-      "Gerçek yaşamda sergilenmesi gereken bir becerinin, ancak o beceri uygulanırken ya da ürün üzerinden gözlemlenerek ölçülebilmesi.",
-      "Çoktan seçmeli testin güvenilir olmaması.",
-      "Kalabalık sınıfları daha hızlı değerlendirmek.",
-      "MEB'in performans değerlendirmesini zorunlu tutması.",
-      "Öğrencilerin sınav kaygısını azaltmak."
-    ]
-  },
-  {
-    text: "22- Din Kültürü öğretmeni, öğrencilerin 'Hoşgörü ve Empati' konusundaki anlayışlarını ölçmek için ders bitmeden 3 dakika ayırıyor: 'Bugün öğrendiklerini bir cümleyle yaz ve aklında kalan tek soru nedir?' diye soruyor. Bu teknik ölçme literatüründe hangi adla bilinmektedir?",
-    options: [
-      "Tanılayıcı dallanmış ağaç.",
-      "Çıkış kartı (exit ticket) — biçimlendirici değerlendirme aracı.",
-      "Erişi testi.",
-      "Bütüncül rubrik.",
-      "Portfolyo değerlendirmesi."
-    ]
-  },
-  {
-    text: "23- Aşağıdaki değerlendirme senaryolarından hangisi düzey belirleyici (özetleyici) değerlendirmeye en iyi örnektir?",
-    options: [
-      "Öğretmenin ders sırasında öğrencilere anlık sorular sorması.",
-      "Öğrencilerin birbirlerinin deney raporuna geri bildirim vermesi.",
-      "Dönem sonunda öğrencilerin tüm ünitedeki kritik kazanımlarını ölçen kapsamlı bir sınav uygulanması.",
-      "Ders başında öğrencilerin konu hakkındaki ön bilgilerinin yoklanması.",
-      "Öğrencilerin hafta boyunca yaptıkları çalışmalardan oluşan portfolyo sunumu."
-    ]
-  },
-  {
-    text: "24- Makine Tasarımı öğretmeni, öğrencilerin teknik çizim ödevini değerlendirmek için bir rubrik hazırlıyor. Rubriğin en yüksek düzeyi için şu tanımı yazıyor: '4 – Çizim ölçek, iz düşümü ve tolerans kurallarını eksiksiz uyguluyor; mesleki standartlarla örtüşüyor.' Bu tanımın rubrik tasarımındaki işlevi nedir?",
-    options: [
-      "Biçimlendirici değerlendirme yapmak.",
-      "Öğrencilerin birbirini değerlendirmesi için örnek oluşturmak.",
-      "Öğretmenin iş yükünü azaltmak.",
-      "Her performans düzeyi için başarı kriterini somutlaştırmak ve puanlama tutarlılığını sağlamak.",
-      "Velilere ödevin nasıl yapılacağını açıklamak."
-    ]
-  },
-  {
-    text: "25- Bilişim Teknolojisi öğretmeni, öğrencilerin 'algoritmik düşünme' konusundaki kavram yanılgılarını sistematik biçimde ortaya çıkarmak istiyor. Her sorunun cevabı bir sonraki soruyu belirleyen bir ölçme aracı hazırlıyor. Bu ölçme aracı hangi türdür?",
-    options: [
-      "Dereceleme ölçeği.",
-      "Çoklu seçmeli madde.",
-      "Tanılayıcı dallanmış ağaç.",
-      "Yapılandırılmış grid.",
-      "Kontrol listesi."
-    ]
-  }
+  {text:"1- Ölçme ve değerlendirme süreçleri arasındaki temel ayrım nedir?",options:["Ölçme kanıt toplama süreciyken değerlendirme, bu kanıtlara dayanarak karar verme sürecidir.","Ölçme öğretmen tarafından, değerlendirme yalnızca öğrenci tarafından yapılır.","Değerlendirme sayısal, ölçme ise sözel bir süreçtir.","Ölçme ve değerlendirme tamamen birbirinden bağımsız süreçlerdir.","Ölçme sınıf içinde, değerlendirme yalnızca okul dışında gerçekleştirilir."]},
+  {text:"2- Bir öğretmen ders işlenirken tahtaya 'Bugüne kadar öğrendiklerim / Hâlâ kafamı karıştıran / Bir sonraki derse sorum' şeklinde üç sütun açıyor ve öğrencilerden yapışkanlı not kâğıdına yazmalarını istiyor. Bu uygulama hangi değerlendirme türüne en iyi örnek oluşturur?",options:["Tanıma-yerleştirmeye yönelik değerlendirme.","Biçimlendirici değerlendirme — öğretimi anlık olarak yönlendirmek amacıyla öğrenme kanıtı toplama.","Düzey belirleyici değerlendirme — dönem sonu başarısını ölçme.","Portfolyo değerlendirmesi.","Bütüncül rubrik değerlendirmesi."]},
+  {text:"3- Aşağıdakilerden hangisi biçimlendirici ve düzey belirleyici değerlendirmeyi birbirinden ayıran en temel özelliktir?",options:["Biçimlendirici değerlendirme yalnızca yazılı sınavlarla yapılır.","Düzey belirleyici değerlendirmede öğrenciler hiçbir zaman birbirleriyle kıyaslanmaz.","Biçimlendirici değerlendirme öğrenme sürecini geliştirmeyi, düzey belirleyici değerlendirme ise dönem sonunda başarı düzeyini belirlemeyi amaçlar.","Biçimlendirici değerlendirme sadece ilkokul, düzey belirleyici ise sadece lise için kullanılır.","Düzey belirleyici değerlendirmede not verilmez."]},
+  {text:"4- Bir öğretmen dönem başında öğrencilerine kısa bir test uyguluyor. Amacı öğrencilerin konuya giriş yapabilmek için hangi ön bilgilere sahip olduğunu anlamak. Bu değerlendirme hangi türe karşılık gelmektedir?",options:["Düzey belirleyici değerlendirme.","Biçimlendirici değerlendirme.","Portfolyo değerlendirmesi.","Tanıma-yerleştirmeye yönelik değerlendirme.","Öz değerlendirme."]},
+  {text:"5- Düzey belirleyici (özetleyici) değerlendirme ile ilgili aşağıdakilerden hangisi doğrudur?",options:["Öğretim süreci devam ederken her ders sonunda yapılır.","Amacı öğrenme eksiklerini tespit edip gidermektir.","Öğrenciler arasında hiçbir kıyaslama yapılmaz.","Öğrencilere not verilmez, yalnızca geri bildirim verilir.","Ders veya dönem sonunda öğrencilerin kazanımları ne ölçüde edindiğini belirlemek için kullanılır."]},
+  {text:"6- Elektrik-Elektronik öğretmeni, öğrencilerinin devre çizimini tamamlamalarının hemen ardından her öğrenciye kısa sözlü geri bildirim veriyor. Bu değerlendirme hangi amaca hizmet etmektedir?",options:["Öğrencinin anlık hatasını tespit edip düzeltmesine rehberlik etmek — biçimlendirici değerlendirme.","Dönem sonu notuna veri sağlamak — düzey belirleyici değerlendirme.","Öğrencinin sınıf içindeki sıralamasını belirlemek.","Ünite sonunda genel başarıyı ölçmek.","Portfolyo için kanıt toplamak."]},
+  {text:"7- Eğitimde 'dolaylı ölçme' kavramı hangi durumu ifade eder?",options:["Öğrencinin sınavda gözetmensiz bırakılması.","Ölçülmek istenen özelliğin doğrudan kendisiyle değil, başka bir değişken aracılığıyla gözlemlenmesi.","Değerlendirmenin dijital araçlarla yapılması.","Öğretmenin değerlendirme sürecini bir asistana devretmesi.","Sınavın veliler tarafından uygulanması."]},
+  {text:"8- Gıda Teknolojisi öğretmeni, öğrencilerin ekmek mayalama sürecindeki adımları doğru uygulayıp uygulamadığını kontrol etmek istiyor. Her adımın yapılıp yapılmadığını evet/hayır şeklinde işaretleyeceği bir form hazırlıyor. Bu puanlama aracı hangisidir?",options:["Dereceli puanlama anahtarı (rubrik).","Dereceleme ölçeği.","Kontrol listesi.","Tanılayıcı dallanmış ağaç.","Yapılandırılmış grid."]},
+  {text:"9- Beden Eğitimi öğretmeni, öğrencilerin basketbol pas tekniğini geliştirmesi için her antrenman sonrası öz değerlendirme formu doldurmalarını istiyor. Bu uygulamanın temel amacı nedir?",options:["Öğrencinin dönem sonu notunu yükseltmesi.","Öğretmenin velilere rapor hazırlamasını kolaylaştırması.","Öğrencinin sınıf içi sıralamasını belirlemesi.","Öğrencinin kendi öğrenmesini izlemesini ve öz düzenleme becerisini geliştirmesini sağlaması.","Dersin müfredata uygunluğunu denetlemesi."]},
+  {text:"10- Müzik öğretmeni, dönem boyunca piyano eğitimini bir değerlendirme listesi kullanarak değerlendiriyor: ritim, nota okuması ve yorumlama boyutları ayrı ayrı puanlanıyor. Bu değerlendirme hangi türdür?",options:["Biçimlendirici değerlendirme — öğrencinin anlık hatasını tespit etmek.","Tanıma-yerleştirmeye yönelik değerlendirme — ön koşul bilgileri ölçmek.","Biçimlendirici değerlendirme — piyano tekniğini geliştirmek.","Öz değerlendirme — öğrencinin kendi performansını izlemesi.","Düzey belirleyici değerlendirme — dönem sonunda performans düzeyini belirlemek."]},
+  {text:"11- Çoktan seçmeli maddelerde çeldirici nasıl olmalıdır?",options:["Yalnızca ölçülen beceriye sahip olmayan öğrencilerin yanıltıcı bulabileceği, makul ama yanlış seçenekler olmalıdır.","Doğru cevabı işaret eden bir ipucu içermelidir.","Olabildiğince kısa ve belirsiz yazılmalıdır.","Öğrencilerin dikkatini dağıtmak için kasıtlı hatalar barındırmalıdır.","Doğru cevapla tamamen ilgisiz olmalıdır."]},
+  {text:"12- Aşağıdakilerden hangisi etkili geri bildirimin özelliği değildir?",options:["Göreve özgü olması.","Öğrenciyi sınıftaki diğer öğrencilerle kıyaslaması.","Zamanında verilmesi.","Öğrencinin geliştirebileceği alanlara yönlendirmesi.","Olumlu bir dil içermesi."]},
+  {text:"13- Felsefe öğretmeni, öğrencilere birbirlerinin yazılarını okutarak 'En güçlü argüman nedir? Eksik ne var?' sorularını sordurdu. Bu değerlendirme yaklaşımı hangisidir?",options:["Düzey belirleyici değerlendirme.","Tanıma-yerleştirmeye yönelik değerlendirme.","Akran geri bildirimine dayalı biçimlendirici değerlendirme.","Portfolyo değerlendirmesi.","Bütüncül rubrik değerlendirmesi."]},
+  {text:"14- Kimya öğretmeni, yılın sonunda 'Asitler ve Bazlar' ünitesindeki kritik kazanımları temsil eden bir sınav uyguluyor. Sonuçlar yıl sonu karnesi için kullanılacak. Bu sınav hangi türdür?",options:["Biçimlendirici değerlendirme.","Tanıma-yerleştirmeye yönelik değerlendirme.","Akran değerlendirmesi.","Düzey belirleyici değerlendirme (erişi testi).","Öz değerlendirme."]},
+  {text:"15- Bir lise öğretmeni aynı sınava üç farklı günde bakan öğrencilerinin puanlarının büyük farklılıklar gösterdiğini fark etti. Bu durum hangi ölçme sorununa işaret eder?",options:["Geçerlik problemi — sınav yanlış özellikleri ölçüyor.","Kapsam geçerliği problemi — sorular müfredatı yansıtmıyor.","Kullanışlılık problemi — sınav çok uzun.","Biçimlendirici değerlendirme yapılmaması.","Güvenirlik problemi — ölçme sonuçları tutarsız ve tekrarlanabilir değil."]},
+  {text:"16- Coğrafya öğretmeni, 12 kutucuklu tabloda iklim türleri ve bitki örtüsü görselleri numaralandırılmış, öğrencilerden numaraları kullanarak cevap vermeleri isteniyor. Bu ölçme aracı hangi türdür?",options:["Yapılandırılmış grid.","Eşleştirmeli test.","Çoktan seçmeli test.","Tanılayıcı dallanmış ağaç.","Açık uçlu madde."]},
+  {text:"17- Aşağıdaki geri bildirim örneklerinden hangisi biçimlendirici değerlendirme ilkelerine en uygun olanıdır?",options:["'Harika bir öğrencisin, bu sınav seni yansıtmıyor.'","'Devrenin ilk iki adımını doğru bağladın. Üçüncü adımda toprak hattını unutmuşsun — bunu düzeltirsen devre çalışır.'","'Notun 48. Daha çok çalışmalısın.'","'Sınıfın geri kalanı bu adımı anlayabildi.'","'Çok kısa yazmışsın, daha uzun olmalıydı.'"]},
+  {text:"18- Dereceli puanlama anahtarı (rubrik) ile kontrol listesi arasındaki temel fark nedir?",options:["Kontrol listesi yalnızca performans görevlerinde kullanılır.","Rubrik sadece yazılı ödevler için kullanılır.","Kontrol listesi bir davranışın var olup olmadığını (evet/hayır) belirlerken rubrik performansın hangi düzeyde gerçekleştiğini tanımlar.","İkisi de tamamen aynı işlevi görür.","Rubrik öğretmen, kontrol listesi ise öğrenci tarafından kullanılır."]},
+  {text:"19- Düzey belirleyici (özetleyici) değerlendirme ile biçimlendirici değerlendirme arasındaki en temel fark nedir?",options:["Düzey belirleyici değerlendirme süreç içinde, biçimlendirici değerlendirme dönem sonunda yapılır.","Biçimlendirici değerlendirme not içerir, düzey belirleyici değerlendirme içermez.","Düzey belirleyici değerlendirmede öğrenciler kesinlikle kıyaslanmaz.","Biçimlendirici değerlendirme öğrenmeyi geliştirmek için süreç içinde yapılırken, düzey belirleyici değerlendirme öğrenmenin gerçekleşip gerçekleşmediğini dönem/yıl sonunda ortaya koymak için uygulanır.","Biçimlendirici değerlendirme yalnızca öğretmen tarafından yapılabilir.","Diğer seçenek"]},
+  {text:"20- 'Bir araç güvenilir olabilir ama geçerli olmayabilir; ancak geçerli olmayan araç zaten güvenilir olmaktan çıkar.' Bu ifade neyi anlatmaktadır?",options:["Güvenirlik ve geçerlik birbirinden bağımsız kavramlardır.","Geçerlik, güvenirliğin her zaman ön koşuludur.","Güvenilir bir araç mutlaka doğru özelliği ölçer.","Geçerlik yalnızca yazılı sınavlarda önemlidir.","Güvenirlik geçerliğin ön koşuludur; tutarsız ölçüm sonuçları üzerine doğru değerlendirme yapılamaz."]},
+  {text:"21- Gemi Yapımı öğretmeni, öğrencileri uygulama sırasında gözlemleyerek puanlama yapmayı tercih ediyor. Performans değerlendirmesinin seçilmesinin temel gerekçesi nedir?",options:["Gerçek yaşamda sergilenmesi gereken bir becerinin, ancak o beceri uygulanırken ya da ürün üzerinden gözlemlenerek ölçülebilmesi.","Çoktan seçmeli testin güvenilir olmaması.","Kalabalık sınıfları daha hızlı değerlendirmek.","MEB'in performans değerlendirmesini zorunlu tutması.","Öğrencilerin sınav kaygısını azaltmak."]},
+  {text:"22- Din Kültürü öğretmeni ders bitmeden 3 dakika ayırıyor: 'Bugün öğrendiklerini bir cümleyle yaz ve aklında kalan tek soru nedir?' Bu teknik ölçme literatüründe hangi adla bilinmektedir?",options:["Tanılayıcı dallanmış ağaç.","Çıkış kartı (exit ticket) — biçimlendirici değerlendirme aracı.","Erişi testi.","Bütüncül rubrik.","Portfolyo değerlendirmesi."]},
+  {text:"23- Aşağıdaki senaryolardan hangisi düzey belirleyici (özetleyici) değerlendirmeye en iyi örnektir?",options:["Öğretmenin ders sırasında öğrencilere anlık sorular sorması.","Öğrencilerin birbirlerinin deney raporuna geri bildirim vermesi.","Dönem sonunda öğrencilerin tüm ünitedeki kritik kazanımlarını ölçen kapsamlı bir sınav uygulanması.","Ders başında öğrencilerin konu hakkındaki ön bilgilerinin yoklanması.","Öğrencilerin hafta boyunca yaptıkları çalışmalardan oluşan portfolyo sunumu."]},
+  {text:"24- Makine Tasarımı öğretmeni, rubriğin en yüksek düzeyi için '4 – Çizim ölçek, iz düşümü ve tolerans kurallarını eksiksiz uyguluyor; mesleki standartlarla örtüşüyor.' tanımını yazıyor. Bu tanımın rubrik tasarımındaki işlevi nedir?",options:["Biçimlendirici değerlendirme yapmak.","Öğrencilerin birbirini değerlendirmesi için örnek oluşturmak.","Öğretmenin iş yükünü azaltmak.","Her performans düzeyi için başarı kriterini somutlaştırmak ve puanlama tutarlılığını sağlamak.","Velilere ödevin nasıl yapılacağını açıklamak."]},
+  {text:"25- Bilişim Teknolojisi öğretmeni, öğrencilerin 'algoritmik düşünme' konusundaki kavram yanılgılarını sistematik biçimde ortaya çıkarmak istiyor. Her sorunun cevabı bir sonraki soruyu belirleyen bir ölçme aracı hazırlıyor. Bu ölçme aracı hangi türdür?",options:["Dereceleme ölçeği.","Çoklu seçmeli madde.","Tanılayıcı dallanmış ağaç.","Yapılandırılmış grid.","Kontrol listesi."]}
 ];
-
-// ═══════════════════════════════════════════
-// STATE
-// ═══════════════════════════════════════════
-let currentRole = 'student';
-let currentQ = 0;
-let answers = {}; // {1: 'A', 2: 'C', ...}
-let currentStudentName = '';
-let results = JSON.parse(localStorage.getItem('examResults') || '[]');
 
 const LETTERS = ['A','B','C','D','E','F'];
 
-// ═══════════════════════════════════════════
-// NAVIGATION
-// ═══════════════════════════════════════════
+// ── STATE ──
+let currentRole = 'student';
+let currentQ = 0;
+let answers = {};
+let currentStudentName = '';
+let allResults = [];
+let modalIdx = null;
+
+// ── STORAGE HELPERS ──
+async function saveResult(record) {
+  try {
+    const existing = await loadAll();
+    existing.push(record);
+    await window.storage.set(STORAGE_KEY, JSON.stringify(existing), true);
+    return true;
+  } catch(e) {
+    console.error('Save error:', e);
+    return false;
+  }
+}
+
+async function loadAll() {
+  try {
+    const res = await window.storage.get(STORAGE_KEY, true);
+    if (!res) return [];
+    return JSON.parse(res.value) || [];
+  } catch(e) {
+    return [];
+  }
+}
+
+async function deleteResult(idx) {
+  const updated = allResults.filter((_,i) => i !== idx);
+  await window.storage.set(STORAGE_KEY, JSON.stringify(updated), true);
+  allResults = updated;
+}
+
+// ── NAV ──
 function show(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
@@ -1338,23 +449,18 @@ function show(id) {
 function setRole(role) {
   currentRole = role;
   document.querySelectorAll('.role-tab').forEach((t,i) => {
-    t.classList.toggle('active', (i===0 && role==='student') || (i===1 && role==='teacher'));
+    t.classList.toggle('active', (i===0&&role==='student')||(i===1&&role==='teacher'));
   });
-  document.getElementById('studentFields').style.display = role === 'student' ? 'block' : 'none';
-  document.getElementById('teacherFields').style.display = role === 'teacher' ? 'block' : 'none';
+  document.getElementById('studentFields').style.display = role==='student'?'block':'none';
+  document.getElementById('teacherFields').style.display = role==='teacher'?'block':'none';
 }
 
 function logout() { show('loginScreen'); }
 
-// ═══════════════════════════════════════════
-// STUDENT EXAM
-// ═══════════════════════════════════════════
+// ── EXAM ──
 function startExam() {
   const name = document.getElementById('studentName').value.trim();
-  if (!name) {
-    document.getElementById('studentError').style.display = 'block';
-    return;
-  }
+  if (!name) { document.getElementById('studentError').style.display='block'; return; }
   currentStudentName = name;
   answers = {};
   currentQ = 0;
@@ -1365,107 +471,90 @@ function startExam() {
 }
 
 function buildDots() {
-  const container = document.getElementById('qDots');
-  container.innerHTML = '';
-  for (let i = 0; i < QUESTIONS.length; i++) {
+  const c = document.getElementById('qDots');
+  c.innerHTML = '';
+  QUESTIONS.forEach((_,i) => {
     const d = document.createElement('div');
     d.className = 'q-dot';
     d.id = `dot-${i}`;
-    container.appendChild(d);
-  }
+    c.appendChild(d);
+  });
 }
 
 function renderQuestion() {
   const q = QUESTIONS[currentQ];
   const qNum = currentQ + 1;
-
   document.getElementById('qNum').textContent = `SORU ${qNum} / ${QUESTIONS.length}`;
   document.getElementById('qText').textContent = q.text;
   document.getElementById('headerProgress').textContent = `Soru ${qNum} / ${QUESTIONS.length}`;
 
-  // Options
   const list = document.getElementById('optionsList');
   list.innerHTML = '';
   q.options.forEach((opt, idx) => {
     const letter = LETTERS[idx];
     const btn = document.createElement('button');
-    btn.className = 'option-btn' + (answers[qNum] === letter ? ' selected' : '');
+    btn.className = 'option-btn' + (answers[qNum]===letter?' selected':'');
     btn.innerHTML = `<span class="option-letter">${letter}</span><span>${opt}</span>`;
     btn.onclick = () => selectAnswer(letter);
     list.appendChild(btn);
   });
 
-  // Progress
   const answered = Object.keys(answers).length;
-  const pct = Math.round((answered / QUESTIONS.length) * 100);
-  document.getElementById('progressFill').style.width = pct + '%';
-  document.getElementById('progressPct').textContent = pct + '%';
+  const pct = Math.round((answered/QUESTIONS.length)*100);
+  document.getElementById('progressFill').style.width = pct+'%';
+  document.getElementById('progressPct').textContent = pct+'%';
   document.getElementById('progressText').textContent = `${answered} / ${QUESTIONS.length} soru yanıtlandı`;
 
-  // Dots
-  document.querySelectorAll('.q-dot').forEach((d, i) => {
+  document.querySelectorAll('.q-dot').forEach((d,i) => {
     d.className = 'q-dot';
     if (answers[i+1]) d.classList.add('answered');
-    if (i === currentQ) d.classList.add('current');
+    if (i===currentQ) d.classList.add('current');
   });
 
-  // Nav buttons
-  document.getElementById('btnPrev').style.visibility = currentQ === 0 ? 'hidden' : 'visible';
-
-  const isLast = currentQ === QUESTIONS.length - 1;
-  const nextBtn = document.getElementById('btnNext');
-  nextBtn.textContent = isLast ? 'Sınavı Bitir ✓' : 'Sonraki →';
-  nextBtn.className = 'btn-nav ' + (isLast ? 'btn-submit' : 'btn-next');
+  document.getElementById('btnPrev').style.visibility = currentQ===0?'hidden':'visible';
+  const isLast = currentQ===QUESTIONS.length-1;
+  const nb = document.getElementById('btnNext');
+  nb.textContent = isLast ? 'Sınavı Bitir ✓' : 'Sonraki →';
+  nb.className = 'btn-nav '+(isLast?'btn-submit':'btn-next');
 }
 
 function selectAnswer(letter) {
-  answers[currentQ + 1] = letter;
+  answers[currentQ+1] = letter;
   renderQuestion();
 }
 
-function prevQ() {
-  if (currentQ > 0) { currentQ--; renderQuestion(); }
-}
-
+function prevQ() { if(currentQ>0){currentQ--;renderQuestion();} }
 function nextQ() {
-  if (currentQ < QUESTIONS.length - 1) {
-    currentQ++;
-    renderQuestion();
-  } else {
-    submitExam();
-  }
+  if(currentQ<QUESTIONS.length-1){currentQ++;renderQuestion();}
+  else submitExam();
 }
 
-function submitExam() {
+async function submitExam() {
   const unanswered = QUESTIONS.length - Object.keys(answers).length;
-  if (unanswered > 0) {
-    if (!confirm(`${unanswered} soru boş bıraktınız. Yine de tamamlamak istiyor musunuz?`)) return;
+  if(unanswered>0 && !confirm(`${unanswered} soru boş bıraktınız. Yine de tamamlamak istiyor musunuz?`)) return;
+
+  let correct=0,wrong=0,blank=0;
+  const detail={};
+  for(let i=1;i<=QUESTIONS.length;i++){
+    const given=answers[i]||null;
+    const key=ANSWER_KEY[i];
+    if(!given){blank++;detail[i]={given:null,correct:key,result:'blank'};}
+    else if(given===key){correct++;detail[i]={given,correct:key,result:'correct'};}
+    else{wrong++;detail[i]={given,correct:key,result:'wrong'};}
   }
+  const score=Math.round((correct/QUESTIONS.length)*100);
+  const record={name:currentStudentName,score,correct,wrong,blank,detail,timestamp:new Date().toISOString()};
 
-  // Calculate
-  let correct = 0, wrong = 0, blank = 0;
-  const detail = {};
-  for (let i = 1; i <= QUESTIONS.length; i++) {
-    const given = answers[i] || null;
-    const key = ANSWER_KEY[i];
-    if (!given) { blank++; detail[i] = { given: null, correct: key, result: 'blank' }; }
-    else if (given === key) { correct++; detail[i] = { given, correct: key, result: 'correct' }; }
-    else { wrong++; detail[i] = { given, correct: key, result: 'wrong' }; }
-  }
+  // Show saving overlay
+  const overlay = document.createElement('div');
+  overlay.className = 'saving-overlay';
+  overlay.innerHTML = '<div class="spinner"></div><div style="font-size:16px;font-weight:500;">Sonuçlar kaydediliyor...</div>';
+  document.body.appendChild(overlay);
 
-  const score = Math.round((correct / QUESTIONS.length) * 100);
+  const ok = await saveResult(record);
+  document.body.removeChild(overlay);
 
-  // Save
-  const record = {
-    name: currentStudentName,
-    score, correct, wrong, blank,
-    detail,
-    timestamp: new Date().toISOString()
-  };
-  results.push(record);
-  localStorage.setItem('examResults', JSON.stringify(results));
-
-  // Show result
+  if(!ok) alert('Kayıt sırasında bir hata oluştu, sonuçlar yine de gösteriliyor.');
   showStudentResult(record);
 }
 
@@ -1478,189 +567,137 @@ function showStudentResult(record) {
 
   const grid = document.getElementById('studentAnswersGrid');
   grid.innerHTML = '';
-
-  for (let i = 1; i <= QUESTIONS.length; i++) {
-    const d = record.detail[i];
-    const row = document.createElement('div');
-    row.className = `answer-row ${d.result}`;
-
-    const icon = d.result === 'correct' ? '✅' : d.result === 'wrong' ? '❌' : '⬜';
-    const givenText = d.given ? `Cevabın: <b>${d.given}</b>` : 'Boş bıraktın';
-    const correctText = `Doğru: <b>${d.correct}</b>`;
-
-    row.innerHTML = `
+  for(let i=1;i<=QUESTIONS.length;i++){
+    const d=record.detail[i];
+    const row=document.createElement('div');
+    row.className=`answer-row ${d.result}`;
+    const icon=d.result==='correct'?'✅':d.result==='wrong'?'❌':'⬜';
+    const givenText=d.given?`Cevabın: <b>${d.given}</b>`:'Boş bıraktın';
+    row.innerHTML=`
       <div class="answer-q-num">${i}</div>
       <div class="answer-detail">
         <div class="answer-q-text">${QUESTIONS[i-1].text.substring(0,80)}...</div>
         <div class="answer-choices">
           <span class="answer-given">${givenText}</span>
-          ${d.result !== 'correct' ? `<span class="answer-correct-lbl">${correctText}</span>` : ''}
+          ${d.result!=='correct'?`<span class="answer-correct-lbl">Doğru: <b>${d.correct}</b></span>`:''}
         </div>
       </div>
-      <div class="answer-icon">${icon}</div>
-    `;
+      <div style="font-size:20px;flex-shrink:0">${icon}</div>`;
     grid.appendChild(row);
   }
-
   show('resultScreen');
 }
 
-// ═══════════════════════════════════════════
-// TEACHER PANEL
-// ═══════════════════════════════════════════
+// ── TEACHER ──
 function teacherLogin() {
   const pass = document.getElementById('teacherPass').value;
-  if (pass !== TEACHER_PASS) {
-    document.getElementById('teacherError').style.display = 'block';
-    return;
-  }
-  renderTeacherPanel();
+  if(pass!==TEACHER_PASS){document.getElementById('teacherError').style.display='block';return;}
+  loadAndRender();
   show('teacherScreen');
 }
 
+async function loadAndRender() {
+  allResults = await loadAll();
+  renderTeacherPanel();
+}
+
 function switchTab(tab) {
-  document.querySelectorAll('.panel-tab').forEach((t,i) => {
-    const tabs = ['overview','students','questions'];
-    t.classList.toggle('active', tabs[i] === tab);
+  document.querySelectorAll('.panel-tab').forEach((t,i)=>{
+    t.classList.toggle('active',['overview','students','questions'][i]===tab);
   });
-  document.querySelectorAll('.panel-content').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('.panel-content').forEach(c=>c.classList.remove('active'));
   document.getElementById(`tab-${tab}`).classList.add('active');
 }
 
 function renderTeacherPanel() {
-  results = JSON.parse(localStorage.getItem('examResults') || '[]');
-
-  // Stats
-  const count = results.length;
+  const count = allResults.length;
   document.getElementById('tStatCount').textContent = count;
 
-  if (count === 0) {
-    document.getElementById('tStatAvg').textContent = '—';
-    document.getElementById('tStatHigh').textContent = '—';
-    document.getElementById('tStatLow').textContent = '—';
-    document.getElementById('overviewEmpty').style.display = 'block';
-    document.getElementById('overviewChart').style.display = 'none';
-    document.getElementById('studentsEmpty').style.display = 'block';
-    document.getElementById('studentTableWrap').style.display = 'none';
-    document.getElementById('qAnalysisEmpty').style.display = 'block';
-    document.getElementById('qAnalysisGrid').innerHTML = '';
+  if(count===0){
+    ['tStatAvg','tStatHigh','tStatLow'].forEach(id=>document.getElementById(id).textContent='—');
+    document.getElementById('overviewEmpty').style.display='block';
+    document.getElementById('overviewChart').style.display='none';
+    document.getElementById('studentsEmpty').style.display='block';
+    document.getElementById('studentTableWrap').style.display='none';
+    document.getElementById('qAnalysisEmpty').style.display='block';
+    document.getElementById('qAnalysisGrid').innerHTML='';
     return;
   }
 
-  const scores = results.map(r => r.score);
-  const avg = Math.round(scores.reduce((a,b)=>a+b,0)/count);
-  const high = Math.max(...scores);
-  const low = Math.min(...scores);
+  const scores=allResults.map(r=>r.score);
+  document.getElementById('tStatAvg').textContent=Math.round(scores.reduce((a,b)=>a+b,0)/count);
+  document.getElementById('tStatHigh').textContent=Math.max(...scores);
+  document.getElementById('tStatLow').textContent=Math.min(...scores);
 
-  document.getElementById('tStatAvg').textContent = avg;
-  document.getElementById('tStatHigh').textContent = high;
-  document.getElementById('tStatLow').textContent = low;
+  document.getElementById('overviewEmpty').style.display='none';
+  document.getElementById('overviewChart').style.display='block';
 
-  // Overview table
-  document.getElementById('overviewEmpty').style.display = 'none';
-  document.getElementById('overviewChart').style.display = 'block';
-
-  const sorted = [...results].sort((a,b) => b.score - a.score);
-  const tbody = document.getElementById('overviewTableBody');
-  tbody.innerHTML = '';
-  sorted.forEach((r, idx) => {
-    const cls = r.score >= 70 ? 'high' : r.score >= 50 ? 'mid' : 'low';
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td>${idx+1}</td>
-      <td><b>${r.name}</b></td>
-      <td><span class="score-badge ${cls}">${r.score}</span></td>
-      <td style="color:var(--green)">${r.correct}</td>
-      <td style="color:var(--red)">${r.wrong}</td>
-      <td style="color:rgba(26,35,64,0.4)">${r.blank}</td>
-    `;
+  const sorted=[...allResults].sort((a,b)=>b.score-a.score);
+  const tbody=document.getElementById('overviewTableBody');
+  tbody.innerHTML='';
+  sorted.forEach((r,idx)=>{
+    const cls=r.score>=70?'high':r.score>=50?'mid':'low';
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td>${idx+1}</td><td><b>${r.name}</b></td><td><span class="score-badge ${cls}">${r.score}</span></td><td style="color:var(--green)">${r.correct}</td><td style="color:var(--red)">${r.wrong}</td><td style="color:rgba(26,35,64,0.4)">${r.blank}</td>`;
     tbody.appendChild(tr);
   });
 
-  // Students table
-  document.getElementById('studentsEmpty').style.display = 'none';
-  document.getElementById('studentTableWrap').style.display = 'block';
-  const stbody = document.getElementById('studentTableBody');
-  stbody.innerHTML = '';
-  results.forEach((r, idx) => {
-    const cls = r.score >= 70 ? 'high' : r.score >= 50 ? 'mid' : 'low';
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td><b>${r.name}</b></td>
-      <td><span class="score-badge ${cls}">${r.score}</span></td>
-      <td>${r.correct} / ${r.wrong} / ${r.blank}</td>
-      <td><button class="btn-detail" onclick="showStudentModal(${idx})">Detay →</button></td>
-    `;
+  document.getElementById('studentsEmpty').style.display='none';
+  document.getElementById('studentTableWrap').style.display='block';
+  const stbody=document.getElementById('studentTableBody');
+  stbody.innerHTML='';
+  allResults.forEach((r,idx)=>{
+    const cls=r.score>=70?'high':r.score>=50?'mid':'low';
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td><b>${r.name}</b></td><td><span class="score-badge ${cls}">${r.score}</span></td><td>${r.correct} / ${r.wrong} / ${r.blank}</td><td><button class="btn-detail" onclick="showStudentModal(${idx})">Detay →</button><button class="btn-delete" onclick="deleteStudent(${idx})">Sil</button></td>`;
     stbody.appendChild(tr);
   });
 
-  // Question analysis
-  document.getElementById('qAnalysisEmpty').style.display = 'none';
-  const qGrid = document.getElementById('qAnalysisGrid');
-  qGrid.innerHTML = '';
-
-  for (let i = 1; i <= QUESTIONS.length; i++) {
-    const correctCount = results.filter(r => r.detail[i]?.result === 'correct').length;
-    const pct = Math.round((correctCount / count) * 100);
-    const color = pct >= 70 ? '#2d6a4f' : pct >= 40 ? '#e9c46a' : '#e63946';
-
-    const row = document.createElement('div');
-    row.className = 'q-analysis-row';
-    row.innerHTML = `
-      <div class="q-num-badge">${i}</div>
-      <div style="flex:1;min-width:0;">
-        <div style="font-size:12px;color:rgba(26,35,64,0.5);margin-bottom:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
-          ${QUESTIONS[i-1].text.substring(3,60)}...
-        </div>
-        <div class="q-analysis-bar-wrap">
-          <div class="q-analysis-bar" style="width:${pct}%;background:${color};"></div>
-        </div>
-      </div>
-      <div class="q-analysis-pct" style="color:${color};">${pct}%</div>
-    `;
+  document.getElementById('qAnalysisEmpty').style.display='none';
+  const qGrid=document.getElementById('qAnalysisGrid');
+  qGrid.innerHTML='';
+  for(let i=1;i<=QUESTIONS.length;i++){
+    const correctCount=allResults.filter(r=>r.detail[i]?.result==='correct').length;
+    const pct=Math.round((correctCount/count)*100);
+    const color=pct>=70?'#2d6a4f':pct>=40?'#e9c46a':'#e63946';
+    const row=document.createElement('div');
+    row.className='q-analysis-row';
+    row.innerHTML=`<div class="q-num-badge">${i}</div><div style="flex:1;min-width:0"><div style="font-size:12px;color:rgba(26,35,64,0.5);margin-bottom:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${QUESTIONS[i-1].text.substring(3,65)}...</div><div class="q-analysis-bar-wrap"><div class="q-analysis-bar" style="width:${pct}%;background:${color}"></div></div></div><div class="q-analysis-pct" style="color:${color}">${pct}%</div>`;
     qGrid.appendChild(row);
   }
 }
 
 function showStudentModal(idx) {
-  const r = results[idx];
-  document.getElementById('modalStudentName').textContent = r.name;
-  document.getElementById('modalScore').textContent = r.score + ' puan';
-  document.getElementById('modalCorrect').textContent = r.correct;
-  document.getElementById('modalWrong').textContent = r.wrong;
+  modalIdx=idx;
+  const r=allResults[idx];
+  document.getElementById('modalStudentName').textContent=r.name;
+  document.getElementById('modalScore').textContent=r.score+' puan';
+  document.getElementById('modalCorrect').textContent=r.correct;
+  document.getElementById('modalWrong').textContent=r.wrong;
 
-  const container = document.getElementById('modalAnswers');
-  container.innerHTML = '';
-
-  for (let i = 1; i <= QUESTIONS.length; i++) {
-    const d = r.detail[i];
-    const row = document.createElement('div');
-    row.className = `modal-answer-row ${d.result === 'correct' ? 'c' : d.result === 'wrong' ? 'w' : 'b'}`;
-    const icon = d.result === 'correct' ? '✅' : d.result === 'wrong' ? '❌' : '⬜';
-    const givenText = d.given || '—';
-    row.innerHTML = `
-      <div class="modal-q-n">${i}</div>
-      <div style="flex:1;font-size:13px;">
-        ${QUESTIONS[i-1].text.substring(3,55)}...
-      </div>
-      <span style="font-size:12px;font-weight:600;color:rgba(26,35,64,0.5);">${givenText}</span>
-      ${d.result !== 'correct' ? `<span style="font-size:12px;color:var(--green);font-weight:600;">${d.correct}</span>` : ''}
-      <span>${icon}</span>
-    `;
+  const container=document.getElementById('modalAnswers');
+  container.innerHTML='';
+  for(let i=1;i<=QUESTIONS.length;i++){
+    const d=r.detail[i];
+    const row=document.createElement('div');
+    row.className=`modal-answer-row ${d.result==='correct'?'c':d.result==='wrong'?'w':'b'}`;
+    const icon=d.result==='correct'?'✅':d.result==='wrong'?'❌':'⬜';
+    row.innerHTML=`<div class="modal-q-n">${i}</div><div style="flex:1;font-size:13px">${QUESTIONS[i-1].text.substring(3,55)}...</div><span style="font-size:12px;font-weight:600;color:rgba(26,35,64,0.5)">${d.given||'—'}</span>${d.result!=='correct'?`<span style="font-size:12px;color:var(--green);font-weight:600">${d.correct}</span>`:''}<span>${icon}</span>`;
     container.appendChild(row);
   }
-
   document.getElementById('studentModal').classList.add('open');
 }
 
-function closeModal() {
-  document.getElementById('studentModal').classList.remove('open');
+async function deleteStudent(idx) {
+  if(!confirm(`"${allResults[idx].name}" adlı öğrencinin kaydı silinsin mi?`)) return;
+  await deleteResult(idx);
+  renderTeacherPanel();
+  closeModal();
 }
 
-// Close modal on overlay click
-document.getElementById('studentModal').addEventListener('click', function(e) {
-  if (e.target === this) closeModal();
-});
+function closeModal() { document.getElementById('studentModal').classList.remove('open'); }
+
+document.getElementById('studentModal').addEventListener('click', function(e){ if(e.target===this)closeModal(); });
 </script>
 </body>
 </html>
