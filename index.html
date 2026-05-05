@@ -599,20 +599,50 @@ function showStudentResult(record) {
   grid.innerHTML = '';
   for(let i=1;i<=QUESTIONS.length;i++){
     const d=record.detail[i];
-    const row=document.createElement('div');
-    row.className=`answer-row ${d.result}`;
+    const q=QUESTIONS[i-1];
     const icon=d.result==='correct'?'✅':d.result==='wrong'?'❌':'⬜';
-    const givenText=d.given?`Cevabın: <b>${d.given}</b>`:'Boş bıraktın';
-    row.innerHTML=`
-      <div class="answer-q-num">${i}</div>
-      <div class="answer-detail">
-        <div class="answer-q-text">${QUESTIONS[i-1].text}</div>
-        <div class="answer-choices">
-          <span class="answer-given">${givenText}</span>
-          ${d.result!=='correct'?`<span class="answer-correct-lbl">Doğru: <b>${d.correct}</b></span>`:''}
-        </div>
+
+    // Şıkları oluştur
+    const optionsHtml = q.options.map((opt, idx) => {
+      const letter = LETTERS[idx];
+      const isGiven = d.given === letter;
+      const isCorrect = d.correct === letter;
+      let bg = 'transparent';
+      let border = '1.5px solid #e0ddd6';
+      let fontWeight = '400';
+      let label = '';
+      if(isCorrect) { bg='rgba(45,106,79,0.1)'; border='1.5px solid #2d6a4f'; fontWeight='600'; label='<span style="margin-left:8px;font-size:11px;color:#2d6a4f;font-weight:700;">✓ DOĞRU</span>'; }
+      if(isGiven && !isCorrect) { bg='rgba(230,57,70,0.08)'; border='1.5px solid #e63946'; fontWeight='600'; label='<span style="margin-left:8px;font-size:11px;color:#e63946;font-weight:700;">✗ SENİN CEVABUN</span>'; }
+      return `<div style="display:flex;align-items:center;gap:10px;padding:10px 14px;margin-top:6px;border-radius:10px;background:${bg};border:${border};font-size:14px;font-weight:${fontWeight};color:#1a2340;">
+        <span style="width:26px;height:26px;border-radius:50%;background:white;border:2px solid #ccc;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;">${letter}</span>
+        <span style="flex:1">${opt}</span>${label}
+      </div>`;
+    }).join('');
+
+    const row = document.createElement('div');
+    row.className = `answer-row ${d.result}`;
+    row.style.cursor = 'pointer';
+    row.style.flexDirection = 'column';
+    row.style.alignItems = 'stretch';
+    row.style.gap = '0';
+
+    row.innerHTML = `
+      <div style="display:flex;align-items:center;gap:16px;" class="row-header">
+        <div class="answer-q-num">${i}</div>
+        <div style="flex:1;font-size:14px;font-weight:500;color:#1a2340;line-height:1.5">${q.text}</div>
+        <div style="font-size:20px;flex-shrink:0">${icon}</div>
+        <div style="font-size:18px;color:rgba(26,35,64,0.3);flex-shrink:0;transition:transform 0.2s" class="arrow-icon">▼</div>
       </div>
-      <div style="font-size:20px;flex-shrink:0">${icon}</div>`;
+      <div class="options-expand" style="display:none;padding-top:12px;">${optionsHtml}</div>`;
+
+    row.addEventListener('click', () => {
+      const expand = row.querySelector('.options-expand');
+      const arrow = row.querySelector('.arrow-icon');
+      const isOpen = expand.style.display !== 'none';
+      expand.style.display = isOpen ? 'none' : 'block';
+      arrow.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+    });
+
     grid.appendChild(row);
   }
   show('resultScreen');
