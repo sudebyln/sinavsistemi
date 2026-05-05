@@ -369,7 +369,7 @@
 
 <script>
 const TEACHER_PASS = 'ogretmen123';
-const STORAGE_KEY = 'sinav_results_v1';
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbzRdiopjTlNiWKQhbmp3uJ_OkxQHNez3kOyPudS8KrdIAyv5546kVc5uD8vv9jwpPQe3w/exec';
 
 const ANSWER_KEY = {1:'A',2:'B',3:'C',4:'D',5:'E',6:'A',7:'B',8:'C',9:'D',10:'C',11:'A',12:'B',13:'C',14:'D',15:'E',16:'A',17:'B',18:'C',19:'D',20:'E',21:'A',22:'B',23:'C',24:'D',25:'E'};
 
@@ -411,12 +411,15 @@ let currentStudentName = '';
 let allResults = [];
 let modalIdx = null;
 
-// ── STORAGE HELPERS ──
+// ── STORAGE HELPERS (Google Apps Script) ──
 async function saveResult(record) {
   try {
-    const existing = await loadAll();
-    existing.push(record);
-    await window.storage.set(STORAGE_KEY, JSON.stringify(existing), true);
+    const res = await fetch(GAS_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(record)
+    });
     return true;
   } catch(e) {
     console.error('Save error:', e);
@@ -426,18 +429,27 @@ async function saveResult(record) {
 
 async function loadAll() {
   try {
-    const res = await window.storage.get(STORAGE_KEY, true);
-    if (!res) return [];
-    return JSON.parse(res.value) || [];
+    const res = await fetch(GAS_URL + '?action=get');
+    const data = await res.json();
+    return Array.isArray(data) ? data : [];
   } catch(e) {
+    console.error('Load error:', e);
     return [];
   }
 }
 
 async function deleteResult(idx) {
-  const updated = allResults.filter((_,i) => i !== idx);
-  await window.storage.set(STORAGE_KEY, JSON.stringify(updated), true);
-  allResults = updated;
+  try {
+    await fetch(GAS_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'delete', index: idx })
+    });
+    allResults = allResults.filter((_,i) => i !== idx);
+  } catch(e) {
+    console.error('Delete error:', e);
+  }
 }
 
 // ── NAV ──
