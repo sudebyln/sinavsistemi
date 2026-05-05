@@ -50,7 +50,6 @@
   .btn-primary:disabled { opacity:0.6; cursor:not-allowed; transform:none; }
 
   .error-msg { color:#ff6b6b; font-size:13px; margin-top:8px; display:none; }
-  .info-msg { color:rgba(255,255,255,0.5); font-size:12px; margin-top:12px; text-align:center; }
 
   /* EXAM */
   #examScreen { background:var(--cream); }
@@ -115,20 +114,149 @@
   .summary-num.blank { color:rgba(26,35,64,0.3); }
   .summary-lbl { font-size:12px; color:rgba(26,35,64,0.5); margin-top:4px; }
 
-  .answers-grid { display:flex; flex-direction:column; gap:12px; }
-  .answer-row { background:white; border-radius:14px; padding:16px 20px; display:flex; align-items:center; gap:16px; box-shadow:0 1px 8px rgba(0,0,0,0.05); border-left:4px solid transparent; }
+  /* ANSWER ROWS */
+  .answers-section-title { font-family:'Playfair Display',serif; font-size:20px; margin-bottom:8px; color:var(--navy); }
+  .answers-hint { font-size:13px; color:rgba(26,35,64,0.45); margin-bottom:16px; display:flex; align-items:center; gap:6px; }
+  .answers-grid { display:flex; flex-direction:column; gap:10px; }
+
+  .answer-row {
+    background:white; border-radius:14px; padding:14px 20px;
+    display:flex; align-items:center; gap:16px;
+    box-shadow:0 1px 8px rgba(0,0,0,0.05); border-left:4px solid transparent;
+    cursor:pointer; transition:transform 0.15s, box-shadow 0.15s; user-select:none;
+  }
+  .answer-row:hover { transform:translateY(-2px); box-shadow:0 4px 16px rgba(0,0,0,0.1); }
+  .answer-row:active { transform:translateY(0); }
   .answer-row.correct { border-left-color:var(--green); }
   .answer-row.wrong { border-left-color:var(--red); }
   .answer-row.blank { border-left-color:rgba(26,35,64,0.15); }
+
   .answer-q-num { width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:14px; flex-shrink:0; }
   .answer-row.correct .answer-q-num { background:rgba(45,106,79,0.1); color:var(--green); }
   .answer-row.wrong .answer-q-num { background:rgba(230,57,70,0.1); color:var(--red); }
   .answer-row.blank .answer-q-num { background:var(--light-gray); color:rgba(26,35,64,0.3); }
-  .answer-detail { flex:1; }
-  .answer-q-text { font-size:13px; color:var(--navy); font-weight:500; line-height:1.4; }
-  .answer-choices { display:flex; gap:12px; margin-top:6px; font-size:12px; }
-  .answer-given { color:var(--red); }
-  .answer-correct-lbl { color:var(--green); }
+
+  .answer-row-main { flex:1; min-width:0; }
+  .answer-q-preview { font-size:13px; color:var(--navy); font-weight:500; line-height:1.4; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .answer-chips { display:flex; gap:8px; margin-top:5px; flex-wrap:wrap; }
+  .chip { display:inline-flex; align-items:center; gap:4px; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:600; }
+  .chip.given-correct { background:rgba(45,106,79,0.12); color:var(--green); }
+  .chip.given-wrong { background:rgba(230,57,70,0.1); color:var(--red); }
+  .chip.correct-ans { background:rgba(45,106,79,0.12); color:var(--green); }
+  .chip.blank-chip { background:var(--light-gray); color:rgba(26,35,64,0.4); }
+  .answer-row-icon { font-size:18px; flex-shrink:0; }
+  .answer-row-arrow { font-size:18px; color:rgba(26,35,64,0.2); flex-shrink:0; transition:transform 0.2s; font-weight:300; }
+  .answer-row:hover .answer-row-arrow { color:var(--teal); transform:translateX(3px); }
+
+  /* QUESTION REVIEW MODAL */
+  .qr-overlay {
+    display:none; position:fixed; inset:0;
+    background:rgba(10,15,30,0.65); z-index:200;
+    align-items:center; justify-content:center;
+    backdrop-filter:blur(4px); padding:16px;
+  }
+  .qr-overlay.open { display:flex; }
+
+  .qr-modal {
+    background:white; border-radius:24px; width:100%; max-width:640px;
+    max-height:90vh; overflow-y:auto;
+    animation:popIn 0.25s cubic-bezier(0.34,1.56,0.64,1);
+    box-shadow:0 24px 64px rgba(0,0,0,0.35);
+  }
+  @keyframes popIn {
+    from { opacity:0; transform:scale(0.88) translateY(20px); }
+    to   { opacity:1; transform:scale(1)   translateY(0); }
+  }
+
+  .qr-header {
+    position:sticky; top:0; background:var(--navy);
+    border-radius:24px 24px 0 0; padding:20px 24px;
+    display:flex; align-items:flex-start; gap:12px; z-index:1;
+  }
+  .qr-header-num {
+    width:40px; height:40px; border-radius:12px; flex-shrink:0;
+    background:rgba(255,255,255,0.1);
+    display:flex; align-items:center; justify-content:center;
+    font-weight:700; font-size:17px; color:white; margin-top:2px;
+  }
+  .qr-header-info { flex:1; min-width:0; }
+  .qr-header-label { font-size:11px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; color:rgba(255,255,255,0.45); margin-bottom:4px; }
+  .qr-header-question { font-size:15px; font-weight:500; color:white; line-height:1.4; }
+  .qr-header-right { display:flex; flex-direction:column; align-items:flex-end; gap:8px; flex-shrink:0; }
+  .qr-result-badge { padding:5px 12px; border-radius:20px; font-size:12px; font-weight:700; white-space:nowrap; }
+  .qr-result-badge.correct { background:rgba(93,212,154,0.2); color:#5dd49a; }
+  .qr-result-badge.wrong   { background:rgba(255,123,133,0.2); color:#ff7b85; }
+  .qr-result-badge.blank   { background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.4); }
+  .qr-btn-close {
+    background:rgba(255,255,255,0.1); border:none; color:rgba(255,255,255,0.7);
+    width:32px; height:32px; border-radius:50%; cursor:pointer;
+    font-size:15px; display:flex; align-items:center; justify-content:center;
+    transition:all 0.2s;
+  }
+  .qr-btn-close:hover { background:rgba(255,255,255,0.2); color:white; }
+
+  .qr-body { padding:24px; }
+
+  .qr-full-question {
+    font-size:15px; font-weight:500; line-height:1.7; color:var(--navy);
+    padding:16px 20px; background:var(--cream); border-radius:12px;
+    margin-bottom:20px; border-left:3px solid var(--teal);
+  }
+
+  .qr-options { display:flex; flex-direction:column; gap:10px; margin-bottom:24px; }
+
+  .qr-option {
+    display:flex; align-items:center; gap:12px;
+    padding:14px 16px; border-radius:14px;
+    border:2px solid var(--light-gray); background:var(--cream);
+    font-size:14px; color:var(--navy); transition:all 0.15s;
+  }
+  .qr-option.is-correct-only {
+    background:rgba(45,106,79,0.07); border-color:#2d6a4f;
+  }
+  .qr-option.is-given-correct {
+    background:rgba(45,106,79,0.1); border-color:#2d6a4f;
+  }
+  .qr-option.is-given-wrong {
+    background:rgba(230,57,70,0.07); border-color:#e63946;
+  }
+
+  .qr-opt-letter {
+    width:32px; height:32px; border-radius:50%; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center;
+    font-weight:700; font-size:13px;
+    background:white; border:2px solid rgba(26,35,64,0.15); color:rgba(26,35,64,0.4);
+    transition:all 0.15s;
+  }
+  .qr-option.is-correct-only .qr-opt-letter { background:#2d6a4f; border-color:#2d6a4f; color:white; }
+  .qr-option.is-given-correct .qr-opt-letter { background:#2d6a4f; border-color:#2d6a4f; color:white; }
+  .qr-option.is-given-wrong  .qr-opt-letter { background:#e63946; border-color:#e63946; color:white; }
+
+  .qr-opt-text { flex:1; line-height:1.45; }
+
+  .qr-opt-tag {
+    font-size:11px; font-weight:700; padding:3px 10px;
+    border-radius:20px; flex-shrink:0; white-space:nowrap;
+  }
+  .tag-correct    { background:rgba(45,106,79,0.15);  color:#2d6a4f; }
+  .tag-your-right { background:rgba(45,106,79,0.15);  color:#2d6a4f; }
+  .tag-your-wrong { background:rgba(230,57,70,0.12);  color:#e63946; }
+
+  .qr-nav {
+    display:flex; justify-content:space-between; align-items:center;
+    padding-top:16px; border-top:1px solid var(--light-gray); gap:12px;
+  }
+  .qr-nav-btn {
+    padding:10px 22px; border-radius:10px; border:none;
+    cursor:pointer; font-family:'DM Sans',sans-serif;
+    font-size:14px; font-weight:600; transition:all 0.2s;
+  }
+  .qr-nav-btn.prev { background:var(--light-gray); color:var(--navy); }
+  .qr-nav-btn.prev:hover:not(:disabled) { background:#e0ddd6; }
+  .qr-nav-btn.next { background:var(--navy); color:white; }
+  .qr-nav-btn.next:hover:not(:disabled) { background:#2a3550; }
+  .qr-nav-btn:disabled { opacity:0.3; cursor:not-allowed; }
+  .qr-counter { font-size:13px; color:rgba(26,35,64,0.4); font-weight:500; text-align:center; }
 
   /* TEACHER */
   #teacherScreen { background:var(--cream); }
@@ -181,7 +309,7 @@
   .refresh-btn { display:flex; align-items:center; gap:8px; padding:10px 20px; background:white; border:1px solid var(--light-gray); border-radius:10px; cursor:pointer; font-family:'DM Sans',sans-serif; font-size:14px; color:var(--navy); margin-bottom:20px; box-shadow:0 1px 6px rgba(0,0,0,0.05); transition:all 0.2s; }
   .refresh-btn:hover { border-color:var(--teal); color:var(--teal); }
 
-  /* MODAL */
+  /* TEACHER MODAL */
   .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:100; align-items:center; justify-content:center; }
   .modal-overlay.open { display:flex; }
   .modal { background:white; border-radius:20px; width:90%; max-width:680px; max-height:85vh; overflow-y:auto; animation:fadeUp 0.3s ease; }
@@ -212,6 +340,10 @@
     .exam-header { padding:14px 16px; }
     .exam-body { padding:24px 12px 100px; }
     .teacher-body { padding:20px 12px; }
+    .qr-header { padding:16px 18px; gap:10px; }
+    .qr-header-question { font-size:13px; }
+    .qr-body { padding:16px; }
+    .qr-nav-btn { padding:10px 14px; font-size:13px; }
   }
 </style>
 </head>
@@ -232,7 +364,7 @@
         <label class="form-label">Adınız Soyadınız</label>
         <input type="text" id="studentName" class="form-input" placeholder="Adınızı giriniz">
       </div>
-      <button class="btn-primary" id="startBtn" onclick="startExam()">Sınava Başla →</button>
+      <button class="btn-primary" onclick="startExam()">Sınava Başla →</button>
       <div id="studentError" class="error-msg">Lütfen adınızı soyadınızı girin.</div>
     </div>
     <div id="teacherFields" style="display:none">
@@ -294,7 +426,8 @@
       <div class="summary-card"><div class="summary-num wrong" id="resWrong">0</div><div class="summary-lbl">❌ Yanlış</div></div>
       <div class="summary-card"><div class="summary-num blank" id="resBlank">0</div><div class="summary-lbl">⬜ Boş</div></div>
     </div>
-    <h2 class="section-title">Soru Analizi</h2>
+    <h2 class="answers-section-title">Soru Analizi</h2>
+    <p class="answers-hint">👆 Herhangi bir soruya tıklayarak soru ve şıklarını detaylı inceleyebilirsiniz</p>
     <div class="answers-grid" id="studentAnswersGrid"></div>
   </div>
 </div>
@@ -314,7 +447,6 @@
       <button class="panel-tab" onclick="switchTab('students')">Öğrenciler</button>
       <button class="panel-tab" onclick="switchTab('questions')">Soru Analizi</button>
     </div>
-
     <div class="panel-content active" id="tab-overview">
       <div class="stats-row">
         <div class="stat-card"><div class="stat-value" id="tStatCount">0</div><div class="stat-lbl">Katılan Öğrenci</div></div>
@@ -331,7 +463,6 @@
         </div>
       </div>
     </div>
-
     <div class="panel-content" id="tab-students">
       <h2 class="section-title">Öğrenci Listesi</h2>
       <div id="studentsEmpty" class="empty-state"><div class="icon">👥</div><p>Henüz sınava giren öğrenci yok.</p></div>
@@ -340,7 +471,6 @@
         <tbody id="studentTableBody"></tbody></table>
       </div>
     </div>
-
     <div class="panel-content" id="tab-questions">
       <h2 class="section-title">Soru Bazlı Doğru Oranı</h2>
       <div id="qAnalysisEmpty" class="empty-state"><div class="icon">📊</div><p>Henüz veri yok.</p></div>
@@ -349,7 +479,7 @@
   </div>
 </div>
 
-<!-- MODAL -->
+<!-- TEACHER DETAIL MODAL -->
 <div class="modal-overlay" id="studentModal">
   <div class="modal">
     <div class="modal-header">
@@ -363,6 +493,32 @@
         <div class="modal-stat"><div class="modal-stat-val w" id="modalWrong">0</div><div class="modal-stat-lbl">❌ Yanlış</div></div>
       </div>
       <div class="modal-answers" id="modalAnswers"></div>
+    </div>
+  </div>
+</div>
+
+<!-- QUESTION REVIEW MODAL -->
+<div class="qr-overlay" id="qrOverlay">
+  <div class="qr-modal" id="qrModal">
+    <div class="qr-header">
+      <div class="qr-header-num" id="qrNum">1</div>
+      <div class="qr-header-info">
+        <div class="qr-header-label">Soru İnceleme</div>
+        <div class="qr-header-question" id="qrHeaderQ">—</div>
+      </div>
+      <div class="qr-header-right">
+        <div class="qr-result-badge" id="qrBadge">—</div>
+        <button class="qr-btn-close" onclick="closeQrModal()" title="Kapat (ESC)">✕</button>
+      </div>
+    </div>
+    <div class="qr-body">
+      <div class="qr-full-question" id="qrFullQuestion"></div>
+      <div class="qr-options" id="qrOptions"></div>
+      <div class="qr-nav">
+        <button class="qr-nav-btn prev" id="qrPrevBtn" onclick="qrNav(-1)">← Önceki</button>
+        <span class="qr-counter" id="qrCounter">1 / 25</span>
+        <button class="qr-nav-btn next" id="qrNextBtn" onclick="qrNav(1)">Sonraki →</button>
+      </div>
     </div>
   </div>
 </div>
@@ -403,7 +559,6 @@ const QUESTIONS = [
 
 const LETTERS = ['A','B','C','D','E','F'];
 
-// ── STATE ──
 let currentRole = 'student';
 let currentQ = 0;
 let answers = {};
@@ -411,7 +566,11 @@ let currentStudentName = '';
 let allResults = [];
 let modalIdx = null;
 
-// ── STORAGE HELPERS (Google Apps Script - JSONP) ──
+// QR Modal state
+let qrRecord = null;
+let qrIdx = 0;
+
+// ── STORAGE ──
 function gasRequest(params) {
   return new Promise((resolve, reject) => {
     const cbName = 'cb_' + Date.now();
@@ -421,76 +580,53 @@ function gasRequest(params) {
       if (document.body.contains(script)) document.body.removeChild(script);
       reject(new Error('Timeout'));
     }, 15000);
-
     window[cbName] = function(data) {
       clearTimeout(timeout);
       delete window[cbName];
       if (document.body.contains(script)) document.body.removeChild(script);
       resolve(data);
     };
-
     const flat = { callback: cbName };
     for (const [k, v] of Object.entries(params)) {
       flat[k] = (typeof v === 'object') ? JSON.stringify(v) : String(v);
     }
-    const qs = Object.entries(flat)
-      .map(([k,v]) => encodeURIComponent(k) + '=' + encodeURIComponent(v))
-      .join('&');
+    const qs = Object.entries(flat).map(([k,v]) => encodeURIComponent(k)+'='+encodeURIComponent(v)).join('&');
     script.src = GAS_URL + '?' + qs;
     document.body.appendChild(script);
   });
 }
-
 async function saveResult(record) {
-  try {
-    await gasRequest({ action: 'save', data: record });
-    return true;
-  } catch(e) {
-    console.error('Save error:', e);
-    return false;
-  }
+  try { await gasRequest({ action:'save', data:record }); return true; }
+  catch(e) { console.error('Save error:',e); return false; }
 }
-
 async function loadAll() {
-  try {
-    const data = await gasRequest({ action: 'get' });
-    return Array.isArray(data) ? data : [];
-  } catch(e) {
-    console.error('Load error:', e);
-    return [];
-  }
+  try { const d = await gasRequest({ action:'get' }); return Array.isArray(d)?d:[]; }
+  catch(e) { console.error('Load error:',e); return []; }
 }
-
 async function deleteResult(idx) {
-  try {
-    await gasRequest({ action: 'delete', index: idx });
-    allResults = allResults.filter((_,i) => i !== idx);
-  } catch(e) {
-    console.error('Delete error:', e);
-  }
+  try { await gasRequest({ action:'delete', index:idx }); allResults = allResults.filter((_,i)=>i!==idx); }
+  catch(e) { console.error('Delete error:',e); }
 }
 
 // ── NAV ──
 function show(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
 }
-
 function setRole(role) {
   currentRole = role;
-  document.querySelectorAll('.role-tab').forEach((t,i) => {
-    t.classList.toggle('active', (i===0&&role==='student')||(i===1&&role==='teacher'));
+  document.querySelectorAll('.role-tab').forEach((t,i)=>{
+    t.classList.toggle('active',(i===0&&role==='student')||(i===1&&role==='teacher'));
   });
   document.getElementById('studentFields').style.display = role==='student'?'block':'none';
   document.getElementById('teacherFields').style.display = role==='teacher'?'block':'none';
 }
-
 function logout() { show('loginScreen'); }
 
 // ── EXAM ──
 function startExam() {
   const name = document.getElementById('studentName').value.trim();
-  if (!name) { document.getElementById('studentError').style.display='block'; return; }
+  if(!name){ document.getElementById('studentError').style.display='block'; return; }
   currentStudentName = name;
   answers = {};
   currentQ = 0;
@@ -499,70 +635,55 @@ function startExam() {
   renderQuestion();
   show('examScreen');
 }
-
 function buildDots() {
   const c = document.getElementById('qDots');
   c.innerHTML = '';
-  QUESTIONS.forEach((_,i) => {
+  QUESTIONS.forEach((_,i)=>{
     const d = document.createElement('div');
     d.className = 'q-dot';
     d.id = `dot-${i}`;
     c.appendChild(d);
   });
 }
-
 function renderQuestion() {
   const q = QUESTIONS[currentQ];
-  const qNum = currentQ + 1;
+  const qNum = currentQ+1;
   document.getElementById('qNum').textContent = `SORU ${qNum} / ${QUESTIONS.length}`;
   document.getElementById('qText').textContent = q.text;
   document.getElementById('headerProgress').textContent = `Soru ${qNum} / ${QUESTIONS.length}`;
-
   const list = document.getElementById('optionsList');
   list.innerHTML = '';
-  q.options.forEach((opt, idx) => {
+  q.options.forEach((opt,idx)=>{
     const letter = LETTERS[idx];
     const btn = document.createElement('button');
-    btn.className = 'option-btn' + (answers[qNum]===letter?' selected':'');
+    btn.className = 'option-btn'+(answers[qNum]===letter?' selected':'');
     btn.innerHTML = `<span class="option-letter">${letter}</span><span>${opt}</span>`;
-    btn.onclick = () => selectAnswer(letter);
+    btn.onclick = ()=>selectAnswer(letter);
     list.appendChild(btn);
   });
-
   const answered = Object.keys(answers).length;
   const pct = Math.round((answered/QUESTIONS.length)*100);
   document.getElementById('progressFill').style.width = pct+'%';
   document.getElementById('progressPct').textContent = pct+'%';
   document.getElementById('progressText').textContent = `${answered} / ${QUESTIONS.length} soru yanıtlandı`;
-
-  document.querySelectorAll('.q-dot').forEach((d,i) => {
+  document.querySelectorAll('.q-dot').forEach((d,i)=>{
     d.className = 'q-dot';
-    if (answers[i+1]) d.classList.add('answered');
-    if (i===currentQ) d.classList.add('current');
+    if(answers[i+1]) d.classList.add('answered');
+    if(i===currentQ) d.classList.add('current');
   });
-
   document.getElementById('btnPrev').style.visibility = currentQ===0?'hidden':'visible';
   const isLast = currentQ===QUESTIONS.length-1;
   const nb = document.getElementById('btnNext');
-  nb.textContent = isLast ? 'Sınavı Bitir ✓' : 'Sonraki →';
+  nb.textContent = isLast?'Sınavı Bitir ✓':'Sonraki →';
   nb.className = 'btn-nav '+(isLast?'btn-submit':'btn-next');
 }
-
-function selectAnswer(letter) {
-  answers[currentQ+1] = letter;
-  renderQuestion();
-}
-
-function prevQ() { if(currentQ>0){currentQ--;renderQuestion();} }
-function nextQ() {
-  if(currentQ<QUESTIONS.length-1){currentQ++;renderQuestion();}
-  else submitExam();
-}
+function selectAnswer(letter){ answers[currentQ+1]=letter; renderQuestion(); }
+function prevQ(){ if(currentQ>0){currentQ--;renderQuestion();} }
+function nextQ(){ if(currentQ<QUESTIONS.length-1){currentQ++;renderQuestion();}else submitExam(); }
 
 async function submitExam() {
   const unanswered = QUESTIONS.length - Object.keys(answers).length;
   if(unanswered>0 && !confirm(`${unanswered} soru boş bıraktınız. Yine de tamamlamak istiyor musunuz?`)) return;
-
   let correct=0,wrong=0,blank=0;
   const detail={};
   for(let i=1;i<=QUESTIONS.length;i++){
@@ -574,21 +695,19 @@ async function submitExam() {
   }
   const score=Math.round((correct/QUESTIONS.length)*100);
   const record={name:currentStudentName,score,correct,wrong,blank,detail,timestamp:new Date().toISOString()};
-
-  // Show saving overlay
-  const overlay = document.createElement('div');
-  overlay.className = 'saving-overlay';
-  overlay.innerHTML = '<div class="spinner"></div><div style="font-size:16px;font-weight:500;">Sonuçlar kaydediliyor...</div>';
+  const overlay=document.createElement('div');
+  overlay.className='saving-overlay';
+  overlay.innerHTML='<div class="spinner"></div><div style="font-size:16px;font-weight:500;">Sonuçlar kaydediliyor...</div>';
   document.body.appendChild(overlay);
-
-  const ok = await saveResult(record);
+  const ok=await saveResult(record);
   document.body.removeChild(overlay);
-
   if(!ok) alert('Kayıt sırasında bir hata oluştu, sonuçlar yine de gösteriliyor.');
   showStudentResult(record);
 }
 
+// ── STUDENT RESULT ──
 function showStudentResult(record) {
+  qrRecord = record;
   document.getElementById('resultScore').textContent = record.score;
   document.getElementById('resultName').textContent = record.name;
   document.getElementById('resCorrect').textContent = record.correct;
@@ -597,82 +716,140 @@ function showStudentResult(record) {
 
   const grid = document.getElementById('studentAnswersGrid');
   grid.innerHTML = '';
+
   for(let i=1;i<=QUESTIONS.length;i++){
-    const d=record.detail[i];
-    const q=QUESTIONS[i-1];
-    const icon=d.result==='correct'?'✅':d.result==='wrong'?'❌':'⬜';
+    const d = record.detail[i];
+    const q = QUESTIONS[i-1];
+    const icon = d.result==='correct'?'✅':d.result==='wrong'?'❌':'⬜';
 
-    // Şıkları oluştur
-    const optionsHtml = q.options.map((opt, idx) => {
-      const letter = LETTERS[idx];
-      const isGiven = d.given === letter;
-      const isCorrect = d.correct === letter;
-      let bg = 'transparent';
-      let border = '1.5px solid #e0ddd6';
-      let fontWeight = '400';
-      let label = '';
-      if(isCorrect) { bg='rgba(45,106,79,0.1)'; border='1.5px solid #2d6a4f'; fontWeight='600'; label='<span style="margin-left:8px;font-size:11px;color:#2d6a4f;font-weight:700;">✓ DOĞRU</span>'; }
-      if(isGiven && !isCorrect) { bg='rgba(230,57,70,0.08)'; border='1.5px solid #e63946'; fontWeight='600'; label='<span style="margin-left:8px;font-size:11px;color:#e63946;font-weight:700;">✗ SENİN CEVABUN</span>'; }
-      return `<div style="display:flex;align-items:center;gap:10px;padding:10px 14px;margin-top:6px;border-radius:10px;background:${bg};border:${border};font-size:14px;font-weight:${fontWeight};color:#1a2340;">
-        <span style="width:26px;height:26px;border-radius:50%;background:white;border:2px solid #ccc;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;">${letter}</span>
-        <span style="flex:1">${opt}</span>${label}
-      </div>`;
-    }).join('');
+    let chipsHtml='';
+    if(d.result==='correct'){
+      chipsHtml=`<span class="chip given-correct">✓ Cevabınız: ${d.given}</span>`;
+    } else if(d.result==='wrong'){
+      chipsHtml=`<span class="chip given-wrong">✗ Cevabınız: ${d.given}</span><span class="chip correct-ans">✓ Doğru: ${d.correct}</span>`;
+    } else {
+      chipsHtml=`<span class="chip blank-chip">Boş — Doğru: ${d.correct}</span>`;
+    }
 
-    const row = document.createElement('div');
-    row.className = `answer-row ${d.result}`;
-    row.style.cursor = 'pointer';
-    row.style.flexDirection = 'column';
-    row.style.alignItems = 'stretch';
-    row.style.gap = '0';
-
-    row.innerHTML = `
-      <div style="display:flex;align-items:center;gap:16px;" class="row-header">
-        <div class="answer-q-num">${i}</div>
-        <div style="flex:1;font-size:14px;font-weight:500;color:#1a2340;line-height:1.5">${q.text}</div>
-        <div style="font-size:20px;flex-shrink:0">${icon}</div>
-        <div style="font-size:18px;color:rgba(26,35,64,0.3);flex-shrink:0;transition:transform 0.2s" class="arrow-icon">▼</div>
+    const row=document.createElement('div');
+    row.className=`answer-row ${d.result}`;
+    row.setAttribute('role','button');
+    row.setAttribute('tabindex','0');
+    row.innerHTML=`
+      <div class="answer-q-num">${i}</div>
+      <div class="answer-row-main">
+        <div class="answer-q-preview">${q.text}</div>
+        <div class="answer-chips">${chipsHtml}</div>
       </div>
-      <div class="options-expand" style="display:none;padding-top:12px;">${optionsHtml}</div>`;
+      <div class="answer-row-icon">${icon}</div>
+      <div class="answer-row-arrow">›</div>
+    `;
 
-    row.addEventListener('click', () => {
-      const expand = row.querySelector('.options-expand');
-      const arrow = row.querySelector('.arrow-icon');
-      const isOpen = expand.style.display !== 'none';
-      expand.style.display = isOpen ? 'none' : 'block';
-      arrow.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
-    });
-
+    const capturedIdx = i-1;
+    row.addEventListener('click', ()=>openQrModal(capturedIdx));
+    row.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' ') openQrModal(capturedIdx); });
     grid.appendChild(row);
   }
   show('resultScreen');
 }
 
+// ── QUESTION REVIEW MODAL ──
+function openQrModal(idx) {
+  qrIdx = idx;
+  renderQrModal();
+  document.getElementById('qrOverlay').classList.add('open');
+  document.getElementById('qrModal').scrollTop = 0;
+}
+
+function closeQrModal() {
+  document.getElementById('qrOverlay').classList.remove('open');
+}
+
+function qrNav(dir) {
+  const newIdx = qrIdx + dir;
+  if(newIdx<0||newIdx>=QUESTIONS.length) return;
+  qrIdx = newIdx;
+  renderQrModal();
+  document.getElementById('qrModal').scrollTop = 0;
+}
+
+function renderQrModal() {
+  const i   = qrIdx + 1;
+  const q   = QUESTIONS[qrIdx];
+  const d   = qrRecord.detail[i];
+
+  // Header num + question preview
+  document.getElementById('qrNum').textContent = i;
+  document.getElementById('qrCounter').textContent = `${i} / ${QUESTIONS.length}`;
+  const preview = q.text.replace(/^\d+[-–]\s*/,'').substring(0,70) + (q.text.length>70?'…':'');
+  document.getElementById('qrHeaderQ').textContent = preview;
+
+  // Full question
+  document.getElementById('qrFullQuestion').textContent = q.text;
+
+  // Result badge
+  const badge = document.getElementById('qrBadge');
+  if(d.result==='correct'){ badge.textContent='✅ Doğru';   badge.className='qr-result-badge correct'; }
+  else if(d.result==='wrong'){ badge.textContent='❌ Yanlış'; badge.className='qr-result-badge wrong'; }
+  else { badge.textContent='⬜ Boş'; badge.className='qr-result-badge blank'; }
+
+  // Options
+  const container = document.getElementById('qrOptions');
+  container.innerHTML = '';
+  q.options.forEach((opt,idx)=>{
+    const letter     = LETTERS[idx];
+    const isCorrect  = d.correct===letter;
+    const isGiven    = d.given===letter;
+    const isGivenW   = isGiven && !isCorrect;
+    const isGivenC   = isGiven && isCorrect;
+
+    const div=document.createElement('div');
+    div.className='qr-option';
+    if(isGivenW)       div.classList.add('is-given-wrong');
+    else if(isGivenC)  div.classList.add('is-given-correct');
+    else if(isCorrect) div.classList.add('is-correct-only');
+
+    let tag='';
+    if(isGivenC) tag=`<span class="qr-opt-tag tag-your-right">✓ Doğru Cevabınız</span>`;
+    else if(isCorrect) tag=`<span class="qr-opt-tag tag-correct">✓ Doğru Cevap</span>`;
+    else if(isGivenW) tag=`<span class="qr-opt-tag tag-your-wrong">✗ Cevabınız</span>`;
+
+    div.innerHTML=`<div class="qr-opt-letter">${letter}</div><div class="qr-opt-text">${opt}</div>${tag}`;
+    container.appendChild(div);
+  });
+
+  // Nav buttons
+  document.getElementById('qrPrevBtn').disabled = qrIdx===0;
+  document.getElementById('qrNextBtn').disabled = qrIdx===QUESTIONS.length-1;
+}
+
+// Close on overlay click
+document.getElementById('qrOverlay').addEventListener('click',function(e){ if(e.target===this) closeQrModal(); });
+
+// Keyboard: ESC closes, arrows navigate
+document.addEventListener('keydown',function(e){
+  if(!document.getElementById('qrOverlay').classList.contains('open')) return;
+  if(e.key==='Escape') closeQrModal();
+  if(e.key==='ArrowRight'||e.key==='ArrowDown') qrNav(1);
+  if(e.key==='ArrowLeft' ||e.key==='ArrowUp')   qrNav(-1);
+});
+
 // ── TEACHER ──
 function teacherLogin() {
-  const pass = document.getElementById('teacherPass').value;
+  const pass=document.getElementById('teacherPass').value;
   if(pass!==TEACHER_PASS){document.getElementById('teacherError').style.display='block';return;}
   loadAndRender();
   show('teacherScreen');
 }
-
-async function loadAndRender() {
-  allResults = await loadAll();
-  renderTeacherPanel();
-}
-
-function switchTab(tab) {
-  document.querySelectorAll('.panel-tab').forEach((t,i)=>{
-    t.classList.toggle('active',['overview','students','questions'][i]===tab);
-  });
+async function loadAndRender(){ allResults=await loadAll(); renderTeacherPanel(); }
+function switchTab(tab){
+  document.querySelectorAll('.panel-tab').forEach((t,i)=>t.classList.toggle('active',['overview','students','questions'][i]===tab));
   document.querySelectorAll('.panel-content').forEach(c=>c.classList.remove('active'));
   document.getElementById(`tab-${tab}`).classList.add('active');
 }
-
-function renderTeacherPanel() {
-  const count = allResults.length;
-  document.getElementById('tStatCount').textContent = count;
-
+function renderTeacherPanel(){
+  const count=allResults.length;
+  document.getElementById('tStatCount').textContent=count;
   if(count===0){
     ['tStatAvg','tStatHigh','tStatLow'].forEach(id=>document.getElementById(id).textContent='—');
     document.getElementById('overviewEmpty').style.display='block';
@@ -683,15 +860,12 @@ function renderTeacherPanel() {
     document.getElementById('qAnalysisGrid').innerHTML='';
     return;
   }
-
   const scores=allResults.map(r=>r.score);
   document.getElementById('tStatAvg').textContent=Math.round(scores.reduce((a,b)=>a+b,0)/count);
   document.getElementById('tStatHigh').textContent=Math.max(...scores);
   document.getElementById('tStatLow').textContent=Math.min(...scores);
-
   document.getElementById('overviewEmpty').style.display='none';
   document.getElementById('overviewChart').style.display='block';
-
   const sorted=[...allResults].sort((a,b)=>b.score-a.score);
   const tbody=document.getElementById('overviewTableBody');
   tbody.innerHTML='';
@@ -701,7 +875,6 @@ function renderTeacherPanel() {
     tr.innerHTML=`<td>${idx+1}</td><td><b>${r.name}</b></td><td><span class="score-badge ${cls}">${r.score}</span></td><td style="color:var(--green)">${r.correct}</td><td style="color:var(--red)">${r.wrong}</td><td style="color:rgba(26,35,64,0.4)">${r.blank}</td>`;
     tbody.appendChild(tr);
   });
-
   document.getElementById('studentsEmpty').style.display='none';
   document.getElementById('studentTableWrap').style.display='block';
   const stbody=document.getElementById('studentTableBody');
@@ -712,7 +885,6 @@ function renderTeacherPanel() {
     tr.innerHTML=`<td><b>${r.name}</b></td><td><span class="score-badge ${cls}">${r.score}</span></td><td>${r.correct} / ${r.wrong} / ${r.blank}</td><td><button class="btn-detail" onclick="showStudentModal(${idx})">Detay →</button><button class="btn-delete" onclick="deleteStudent(${idx})">Sil</button></td>`;
     stbody.appendChild(tr);
   });
-
   document.getElementById('qAnalysisEmpty').style.display='none';
   const qGrid=document.getElementById('qAnalysisGrid');
   qGrid.innerHTML='';
@@ -726,15 +898,13 @@ function renderTeacherPanel() {
     qGrid.appendChild(row);
   }
 }
-
-function showStudentModal(idx) {
+function showStudentModal(idx){
   modalIdx=idx;
   const r=allResults[idx];
   document.getElementById('modalStudentName').textContent=r.name;
   document.getElementById('modalScore').textContent=r.score+' puan';
   document.getElementById('modalCorrect').textContent=r.correct;
   document.getElementById('modalWrong').textContent=r.wrong;
-
   const container=document.getElementById('modalAnswers');
   container.innerHTML='';
   for(let i=1;i<=QUESTIONS.length;i++){
@@ -747,17 +917,14 @@ function showStudentModal(idx) {
   }
   document.getElementById('studentModal').classList.add('open');
 }
-
-async function deleteStudent(idx) {
+async function deleteStudent(idx){
   if(!confirm(`"${allResults[idx].name}" adlı öğrencinin kaydı silinsin mi?`)) return;
   await deleteResult(idx);
   renderTeacherPanel();
   closeModal();
 }
-
-function closeModal() { document.getElementById('studentModal').classList.remove('open'); }
-
-document.getElementById('studentModal').addEventListener('click', function(e){ if(e.target===this)closeModal(); });
+function closeModal(){ document.getElementById('studentModal').classList.remove('open'); }
+document.getElementById('studentModal').addEventListener('click',function(e){ if(e.target===this)closeModal(); });
 </script>
 </body>
 </html>
